@@ -6,7 +6,7 @@ from django.utils.text import slugify
 class Profile(models.Model):
     email = models.EmailField()
     username = models.CharField(max_length=50)
-    password = models.CharField(max_length=20)
+    password = models.CharField(max_length=255)
     user = models.OneToOneField(
         get_user_model(), on_delete=models.CASCADE, related_name="profile")
     date_joined = models.DateTimeField(auto_now_add=True, editable=False)
