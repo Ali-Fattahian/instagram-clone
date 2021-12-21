@@ -48,7 +48,7 @@ class TestCommentModel(TestCase):
         self.assertEqual(self.test_comment.content, 'random string')
 
 
-class TestLikePostsModel(TestCase):
+class TestLikePostModel(TestCase):
     def setUp(self):
         self.username = 'test_user'
         self.email = 'test_user@gmail.com'
@@ -62,5 +62,9 @@ class TestLikePostsModel(TestCase):
                                              image='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg')
         self.test_comment = Comment.objects.create(
             content='random string', profile=self.test_profile, post=self.test_post)
-        self.test_like = LikePost.objects.create(
+        self.test_like_post = LikePost.objects.create(
             profile=self.test_profile, post=self.test_post)
+
+    def test_create_like_post(self):
+        """Test likepost object created by profile and post field given"""
+        self.assertIsInstance(self.test_like_post, LikePost)
