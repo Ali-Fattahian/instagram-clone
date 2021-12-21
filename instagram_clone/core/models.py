@@ -42,3 +42,12 @@ class LikeComment(models.Model):
 
     def __str__(self):
         return f'profile {self.profile.username} liked comment id {self.comment.id} by {self.comment.profile.username}'
+
+
+class Follow(models.Model):
+    follower = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='profile')
+    followed = models.SmallIntegerField()
+
+    def __str__(self):
+        return f'user {self.follower.profile.username} followed user with the id of {self.followed}'

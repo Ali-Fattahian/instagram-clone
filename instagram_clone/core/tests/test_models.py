@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from core.models import Post, Comment, LikePost, LikeComment
+from core.models import Post, Comment, LikePost, LikeComment, Follow
 
 
 class TestPostModel(TestCase):
@@ -99,6 +99,7 @@ class TestFollowModel(TestCase):
         self.last_name1 = 'last test'
         self.test_user1 = get_user_model().objects.create_user(
             username=self.username1, password=self.password1, email=self.email1, first_name=self.first_name1, last_name=self.last_name1)
+        self.test_profile1 = self.test_user1.profile
 
         self.username2 = 'test_user2'
         self.email2 = 'test_user@gmail.com2'
@@ -107,9 +108,10 @@ class TestFollowModel(TestCase):
         self.last_name2 = 'last test2'
         self.test_user2 = get_user_model().objects.create_user(
             username=self.username2, password=self.password2, email=self.email2, first_name=self.first_name2, last_name=self.last_name2)
+        self.test_profile2 = self.test_user2.profile
 
         self.test_follow = Follow.objects.create(
-            follower=self.test_user2, following=self.test_user1.id)
+            follower=self.test_profile2, followed=self.test_profile1.id)
 
     def test_create_follow(self):
         """Test follow object created by follower and following field given """
