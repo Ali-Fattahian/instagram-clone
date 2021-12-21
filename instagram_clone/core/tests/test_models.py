@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from core.models import Post, Comment
+from core.models import Post, Comment, LikePost
 
 
 class TestPostModel(TestCase):
