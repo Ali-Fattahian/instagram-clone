@@ -15,4 +15,4 @@ class TestSignUpView(TestCase):
         """Test the creation of user object by using sign up view"""
         response = self.test_client.post('/users/sign-up', {'username': self.username, 'password': self.password,
                                          'email': self.email, 'first_name': self.first_name, 'last_name': self.last_name})
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 301)

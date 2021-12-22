@@ -1,0 +1,166 @@
+h3 {
+  font-size: 17px;
+  color: #8e8e8e;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+label {
+  display: none;
+}
+
+.btn {
+  padding: 10px 110px;
+  cursor: pointer;
+  transition: 0.1s background-color ease-in-out;
+  border: none;
+}
+.btn:active,
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn {
+  background-color: #0095f6;
+  color: #fff;
+  border: 0.1px solid #0095f6;
+  border-radius: 3px;
+}
+
+.links--small {
+  font-size: 12px;
+  color: #8e8e8d;
+}
+
+.container {
+  padding: 1rem;
+}
+
+.helptext {
+  display: none;
+}
+
+#main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0;
+}
+#main .content-container {
+  width: 70%;
+  max-width: 935px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#main .content-container #register {
+  order: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#main .content-container #register form {
+  background-color: white;
+  padding: 1rem 2rem;
+  border: 1px solid #e1e1e1;
+  max-width: 322px;
+}
+#main .content-container #register form input {
+  margin-top: 0.5rem;
+}
+#main .content-container #register form .links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#main .content-container #register form .links .forgot-password {
+  margin-top: 1.5rem;
+}
+#main .content-container #register form .links button {
+  padding: 6px 103px;
+}
+#main .content-container .btn {
+  margin-top: 8px;
+}
+
+.instagram-icon {
+  width: 175px;
+  margin: auto;
+}
+.instagram-icon img {
+  width: 175px;
+}
+
+.forgot-password {
+  color: #00376b;
+}
+
+.sign-up {
+  background-color: #fff;
+  padding: 1rem 3.75rem;
+  border: 1px solid #e1e1e1;
+  margin-top: 1rem;
+}
+.sign-up a {
+  color: #0095f6;
+}
+
+#images img {
+  width: 454px;
+  margin-right: 5rem;
+}
+
+#footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+#footer .footer-container {
+  width: 100%;
+  max-width: 725px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#footer a {
+  color: #a2a2a2;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0 0.5rem;
+}
+#footer h5 {
+  display: inline-block;
+  color: #a2a2a2;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0 0.5rem;
+}
+
+@media (max-width: 865px) {
+  #images {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .form {
+    background-color: #fafafa !important;
+    border: none !important;
+  }
+  .links,
+  .sign-up {
+    background-color: #fafafa;
+    border: none;
+  }
+  .sign-up a {
+    display: block;
+  }
+}
