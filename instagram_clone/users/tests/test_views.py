@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 
 
@@ -11,8 +12,17 @@ class TestSignUpView(TestCase):
         self.last_name = 'testlastname'
         self.test_client = Client()
 
-    def test_sign_up_user(self):
-        """Test the creation of user object by using sign up view"""
-        response = self.test_client.post('/users/sign-up', {'username': self.username, 'password': self.password,
-                                         'email': self.email, 'first_name': self.first_name, 'last_name': self.last_name})
-        self.assertEqual(response.status_code, 301)
+    def test_user_sign_up_form(self):
+        """Test the creation of user object by using SignUpView"""
+        response = self.test_client.post(reverse('users:sign-up'), data={
+            'username': self.username,
+            'email': self.email,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'password1': self.password,
+            'password2': self.password
+        })
+        self.assertEqual(response.status_code, 302)
+
+        created_user = get_user_model().objects.get(username=self.username)
+        self.assertIsInstance(created_user, get_user_model())

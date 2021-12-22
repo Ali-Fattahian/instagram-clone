@@ -13,7 +13,8 @@ Sign Up • Instagram
   <main id="main">
     <div class="content-container">
       <section id="register">
-        <form action="#" method="post" class="form">
+        <form method="post" class="form">
+          {% csrf_token %}
           <div class="instagram-icon">
             <img
               src="{% static 'images/Instagram-wordmark-small.png' %}"
@@ -23,7 +24,6 @@ Sign Up • Instagram
           <h3>Sign up to see photos and videos from your friends.</h3>
           <div class="inputs">
             {{ form }}
-            {% csrf_token %}
           </div>
           <div class="links">
             <button type="submit" class="btn">Sign Up</button>
