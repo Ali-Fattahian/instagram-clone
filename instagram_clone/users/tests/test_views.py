@@ -26,3 +26,21 @@ class TestSignUpView(TestCase):
 
         created_user = get_user_model().objects.get(username=self.username)
         self.assertIsInstance(created_user, get_user_model())
+
+
+class TestLoginView(TestCase):
+    def setUp(self):
+        self.username = 'test'
+        self.password = 'testpassword'
+        self.email = 'test@gmail.com'
+        self.test_user = get_user_model().objects.create_user(
+            username=self.username, password=self.password, email=self.email)
+        self.test_client = Client()
+
+    def test_login_test_user(self):
+        """Test user can log in with username and password using LogInView"""
+        self.test_client.post(reverse('log-in'), date={
+            'username': self.username,
+            'password': self.password
+        })
+        self.assertTrue(self.test_user.is_authenticated)
