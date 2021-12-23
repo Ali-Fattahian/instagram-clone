@@ -25,8 +25,7 @@ class Profile(models.Model):
 
 
 class Follow(models.Model):
-    followed_user = models.OneToOneField(
-        Profile, on_delete=models.CASCADE, related_name="followers")
+    followed_user = models.IntegerField()
     following_user = models.OneToOneField(
         Profile, on_delete=models.CASCADE, related_name="followings")
 
