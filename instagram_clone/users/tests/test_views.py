@@ -39,7 +39,7 @@ class TestLoginView(TestCase):
 
     def test_login_test_user(self):
         """Test user can log in with username and password using LogInView"""
-        self.test_client.post(reverse('log-in'), date={
+        self.test_client.post(reverse('users:log-in'), data={
             'username': self.username,
             'password': self.password
         })

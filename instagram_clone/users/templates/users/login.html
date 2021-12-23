@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Instagram
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'users/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main id="main">
+      <div class="content-container">
+        <section id="register">
+          <form method="post" class="form">
+            {% csrf_token %}
+            <div class="instagram-icon">
+              <img
+                src="{% static 'images/Instagram-wordmark-01.png' %}"
+                alt="Instagram Icon"
+              />
+            </div>
+            <div class="inputs">
+              <div class="username-email">
+                <input
+                  type="text"
+                  name="username"
+                  id="username-email"
+                  placeholder="Username"
+                />
+              </div>
+              <div class="password">
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                />
+              </div>
+            </div>
+            <div class="links">
+              <button type="submit" class="btn">Login</button>
+              <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+          </form>
+          <div class="sign-up">
+            <p>Don't have an account? <a href="{% url 'users:sign-up' %}">Sign up</a></p>
+          </div>
+          <div class="sign-up"><a href="#">Enter as a guest</a></div>
+        </section>
+        <section id="images">
+          <img src="{% static 'images/instagram.jpg' %}" alt="Instagram" />
+        </section>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="footer-container">
+        <div class="footer-1">
+          <a href="#">Meta</a><a href="#">About</a><a href="#">Blog</a
+          ><a href="#">Jobs</a><a href="#">Help</a><a href="#">API</a
+          ><a href="#">Privacy</a><a href="#">Terms</a
+          ><a href="#">Top Accounts</a><a href="#">Hashtags</a
+          ><a href="#">Locations</a><a href="#">Instagram Lite</a>
+        </div>
+        <div class="footer-2">
+          <a href="#">Beauty</a><a href="#">Dance</a><a href="#">Fitness</a
+          ><a href="#">Food & Drink</a><a href="#">Home & Garden</a
+          ><a href="#">Music</a><a href="#">Visual Arts</a>
+        </div>
+        <div class="footer-3">
+          <a href="#">English</a>
+          <h5>&copy; 2021 Instagram from Meta</h5>
+        </div>
+      </div>
+    </footer>
+{% endblock%}
