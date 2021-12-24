@@ -37,7 +37,7 @@ class TestFollowModel(TestCase):
         self.test_profile1 = self.test_user1.profile
 
         self.username2 = 'test_user2'
-        self.email2 = 'test_user@gmail.com2'
+        self.email2 = 'test_user2@gmail.com'
         self.password2 = 'testpassword2'
         self.first_name2 = 'first test2'
         self.last_name2 = 'last test2'
