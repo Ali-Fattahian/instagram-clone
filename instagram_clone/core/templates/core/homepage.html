@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Instagram
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'core/homepage.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/user-account.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <header id="header">
+      <div class="nav-container">
+        <section class="navbar">
+          <a href="#"
+            ><div class="instagram-icon">
+              <img
+                src="{% static 'images/instagram-wordmark-small.png' %}"
+                alt="Instagram"
+              /></div
+          ></a>
+          <div class="search">
+            <input
+              type="search"
+              name="searchquery"
+              id="searchquery"
+              placeholder="Search"
+            />
+          </div>
+          <div class="icons">
+            <a href="#"><i class="fas fa-home fa-lg"></i></a>
+            <a href="#"><i class="far fa-comments fa-lg"></i></a>
+            <a href="#"><i class="fas fa-plus fa-lg"></i></a
+            ><a href=""><i class="fas fa-search fa-lg"></i></a>
+            <a href="#"><i class="far fa-heart fa-lg"></i></a>
+            <a href="#"><i class="fas fa-user fa-lg"></i></a>
+          </div>
+        </section>
+      </div>
+    </header>
+    <main id="main">
+      <div class="main__content-container">
+        <div class="main__content">
+          <div class="posts">
+          {% for post in posts %}
+            <div class="post">
+              <div class="post-top">
+                <div class="post__profile-links">
+                  <div class="poster__picture"></div>
+                  <div class="poster__username">
+                    <a href="#">{{ post.profile.username }}</a>
+                  </div>
+                </div>
+                <div class="poster-more"><i class="fas fa-ellipsis-h"></i></div>
+              </div>
+              <div class="post__picture">
+                <img src="{{ post.image.url }}" alt="{{ post.profile.username }} post picture"/>
+              </div>
+              <div class="post__interaction">
+                <div class="post__interaction-left">
+                  <a href="#"><i class="far fa-heart fa-lg"></i></a>
+                  <a href="#"><i class="fa fa-commenting-o fa-lg"></i></a>
+                  <a href="#"><i class="far fa-comments fa-lg"></i></a>
+                </div>
+                <div class="post__interaction-right">
+                  <a href="#"><i class="far fa-save fa-lg"></i></a>
+                </div>
+              </div>
+              <div class="post__likes">{{ post.post_like.count }} likes</div>
+              <div class="post__bio">
+                <a href="#">{{ post.profile.username }}</a>
+                <p>
+                  {{ post.content }}
+                </p>
+              </div>
+              <div class="post__comments">
+                <p class="comments__title">Comments</p>
+                <div class="comments">
+                  <div class="comment">
+                    <a href="#" class="comment__author">ali_fattahian</a>
+                    <p class="comment__content">
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Odit minus et quos qui laudantium, tempore repudiandae sit
+                      dolor reprehenderit neque.
+                    </p>
+                  </div>
+                  <div class="comment">
+                    <a href="#" class="comment__author">alice_dev</a>
+                    <p class="comment__content">
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Odit minus et quos qui laudantium, tempore repudiandae sit
+                      dolor reprehenderit neque.
+                    </p>
+                  </div>
+                </div>
+                <div class="post__date-created">
+                  <small>4 HOURS AGO</small>
+                </div>
+                <div class="comment__add">
+                  <form action="#" method="post">
+                    <input
+                      type="text"
+                      name="comment"
+                      id="comment"
+                      placeholder="Add a comment..."
+                    />
+                    <button type="submit">Post</button>
+                  </form>
+                </div>
+              </div>
+              <div class="post__date-created"></div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="spacefiller"></div>
+          <div class="suggestions">
+            <div class="user-account">
+              <div class="user-profile__picture">
+                <div class="img"></div>
+              </div>
+              <div class="user-info">
+                <a href="#">ali_fattahian</a>
+                <small>Ali Fattahian</small>
+              </div>
+              <a href="#">Switch</a>
+            </div>
+            <div class="suggestion-accounts">
+              <div class="suggestion-accounts__header">
+                <h4>Suggestions For You</h4>
+              </div>
+              <div class="suggested-users">
+                <div class="suggested-users__profile-picture"></div>
+                <div class="suggested-users__info">john_doe</div>
+                <a href="#">Follow</a>
+              </div>
+            </div>
+            <div class="tags">
+              <div class="tags-first-row">
+                <a href="#">About</a><a href="#">Help</a><a href="#">Press</a
+                ><a href="#">API</a>
+                <a href="#">Jobs</a>
+                <a href="#">Privacy</a><a href="#">Terms</a>
+              </div>
+              <div class="tags-second-row">
+                <a href="#">Locations</a><a href="#">Top Accounts</a
+                ><a href="#">Hashtags</a><a href="#">Language</a>
+              </div>
+            </div>
+            <div class="copy-rights">
+              <small>&copy; 2021 INSTAGRAM FROM META</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+{% endblock %}

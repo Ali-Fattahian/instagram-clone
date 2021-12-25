@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from core.models import Post
 from users.models import Follow
+from core.views import HomePageView
 
 class TestHomePageView(TestCase):
     def setUp(self):
@@ -41,6 +42,7 @@ class TestHomePageView(TestCase):
             following_user=self.test_profile2, followed_user=self.test_profile1)
 
         self.test_client = Client()
+        self.test_client.force_login(user=self.test_user2)
         self.response = self.test_client.get(reverse('core:homepage'))
 
     def test_homepage_view_works(self):
@@ -51,5 +53,4 @@ class TestHomePageView(TestCase):
 
     def test_posts_shown_in_homepage(self):
         """Test a user can only see the posts from following users"""
-        self.assertEqual(len(self.response.context['posts']), 1)
-            
+        self.assertEqual(self.response.context['posts'].count(), 1)

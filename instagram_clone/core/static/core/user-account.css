@@ -1,0 +1,89 @@
+#user-main {
+  width: 100%; }
+  #user-main .user-container {
+    width: 100%;
+    max-width: 975px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    padding: 4.2rem; }
+    #user-main .user-container .user-information {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-items: flex-start;
+      padding-bottom: 3rem; }
+      #user-main .user-container .user-information .user-profile__picture .picture {
+        width: 168px;
+        height: 168px;
+        border-radius: 50%;
+        background-color: #000; }
+      #user-main .user-container .user-information .user-profile__details {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 1rem;
+        padding-left: 6rem; }
+        #user-main .user-container .user-information .user-profile__details .user-name-interaction {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          justify-content: start; }
+          #user-main .user-container .user-information .user-profile__details .user-name-interaction a {
+            color: #000; }
+          #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-username {
+            font-size: 2rem;
+            font-weight: bold; }
+          #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction {
+            margin-left: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center; }
+            #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction a {
+              margin-right: 1rem;
+              border: #dbdbdb 1px solid;
+              font-weight: bold;
+              padding: 5px 9px; }
+        #user-main .user-container .user-information .user-profile__details .user-follow-post-count {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          justify-content: start; }
+          #user-main .user-container .user-information .user-profile__details .user-follow-post-count p {
+            margin-right: 2rem; }
+        #user-main .user-container .user-information .user-profile__details .user-bio {
+          line-height: 1.2; }
+    #user-main .user-container .user-posts {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid #dbdbdb;
+      width: 70vw; }
+      #user-main .user-container .user-posts .user-post img {
+        width: 100%;
+        max-width: 293px;
+        object-fit: center center/cover; }
+
+@media screen and (max-width: 735px) {
+  #user-main .user-container .user-information {
+    flex-direction: column;
+    font-size: 14px; }
+    #user-main .user-container .user-information .user-profile__picture .picture {
+      width: 77px;
+      height: 77px; }
+    #user-main .user-container .user-information .user-profile__details {
+      padding-left: 0; }
+      #user-main .user-container .user-information .user-profile__details .user-name-interaction {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center; }
+        #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-username {
+          margin-bottom: 1rem; }
+        #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction {
+          margin-left: 0; } }
