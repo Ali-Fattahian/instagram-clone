@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from core.models import Post
 from users.models import Follow
-from core.views import HomePageView
+
 
 class TestHomePageView(TestCase):
     def setUp(self):
@@ -16,7 +16,7 @@ class TestHomePageView(TestCase):
             username=self.username1, password=self.password1, email=self.email1, first_name=self.first_name1, last_name=self.last_name1)
         self.test_profile1 = self.test_user1.profile
         self.test_post1 = Post.objects.create(content='random string', profile=self.test_profile1,
-                                             image='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg')
+                                              image='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg')
 
         self.username2 = 'test_user2'
         self.email2 = 'test_user2@gmail.com'
@@ -35,8 +35,8 @@ class TestHomePageView(TestCase):
         self.test_user3 = get_user_model().objects.create_user(
             username=self.username3, password=self.password3, email=self.email3, first_name=self.first_name3, last_name=self.last_name3)
         self.test_profile3 = self.test_user3.profile
-        self.test_post2= Post.objects.create(content='random string', profile=self.test_profile3,
-                                             image='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg')
+        self.test_post2 = Post.objects.create(content='random string', profile=self.test_profile3,
+                                              image='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg')
 
         self.test_follow = Follow.objects.create(
             following_user=self.test_profile2, followed_user=self.test_profile1)
@@ -50,7 +50,15 @@ class TestHomePageView(TestCase):
         self.assertEqual(self.response.status_code, 200)
         self.assertTemplateUsed(self.response, 'core/homepage.html')
 
-
     def test_posts_shown_in_homepage(self):
         """Test a user can only see the posts from following users"""
         self.assertEqual(self.response.context['posts'].count(), 1)
+
+    def test_comment_form_exist(self):
+        """Test CommentForm exist in the homepage view"""
+        self.assertContains(self.response.context, 'comment_form')
+
+
+    def test_comment_posted(self):
+        """Test a comment object created and saved in database"""
+        pass
