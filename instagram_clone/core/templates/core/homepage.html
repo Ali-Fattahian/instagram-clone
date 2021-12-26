@@ -108,6 +108,7 @@
                       placeholder="Add a comment..."
                     /> {% endcomment %}
                     {{ comment_form }}
+                    <input type="hidden" name="post_id" value="{{ post.id }}"> <!--To use this id for adding a comment to this post-->
                     <button type="submit">Post</button>
                   </form>
                 </div>

@@ -1,7 +1,9 @@
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from core.models import Post
+from django.template.loader import render_to_string
+from core.forms import CommentForm
+from core.models import Post, Comment
 from users.models import Follow
 
 
@@ -43,23 +45,33 @@ class TestHomePageView(TestCase):
 
         self.test_client = Client()
         self.test_client.force_login(user=self.test_user2)
-        self.response = self.test_client.get(reverse('core:homepage'))
+        self.get_response = self.test_client.get(reverse('core:homepage'))
 
     def test_homepage_view_works(self):
         """Test homepage view returning 200 and rendering the right template"""
-        self.assertEqual(self.response.status_code, 200)
-        self.assertTemplateUsed(self.response, 'core/homepage.html')
+        self.assertEqual(self.get_response.status_code, 200)
+        self.assertTemplateUsed(self.get_response, 'core/homepage.html')
 
     def test_posts_shown_in_homepage(self):
         """Test a user can only see the posts from following users"""
-        self.assertEqual(self.response.context['posts'].count(), 1)
+        self.assertEqual(self.get_response.context['posts'].count(), 1)
 
     def test_comment_form_exist(self):
         """Test CommentForm exist in the homepage view"""
-        comment_form = self.response.context.get('comment_form')
+        comment_form = self.get_response.context.get('comment_form')
         self.assertTrue(comment_form)
-        self.assertFalse(self.response.context.get('comment-form'))
+        self.assertIsInstance(comment_form, CommentForm)
+        self.assertFalse(self.get_response.context.get('comment-form'))
 
     def test_comment_posted(self):
-        """Test a comment object created and saved in database"""
-        pass
+        """Test a comment object created and saved in database and is connected to expected post"""
+        post_response = self.test_client.post(reverse('core:homepage'), data={
+            'content':'idk'
+        })
+        content = render_to_string(post_response)
+        post_id = content['post_id'] # To retrieve post id in hidden input
+        comment = Comment.objects.create(content='idk', post = Post.objects.get(id=post_id), profile=self.test_profile2)
+        self.assertContains(post_response, 'type="hidden"', 1)
+        self.assertTrue(comment)
+        self.assertEqual(comment.post, self.test_post1)
+        self.assertEqual(comment.profile, self.test_profile2)
