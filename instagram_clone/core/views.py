@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
 from .models import Post
+from .forms import CommentForm
 
 
 class HomePageView(View):
@@ -14,7 +15,7 @@ class HomePageView(View):
         for followed_user in followed_users:
             posts = Post.objects.filter(profile=followed_user) | posts
 
-        context = {'posts': posts.order_by('-date_created')}
+        context = {'posts': posts.order_by('-date_created'), 'comment_form':CommentForm()}
         return render(request, 'core/homepage.html', context)
 
     def post(self, request):

@@ -56,8 +56,9 @@ class TestHomePageView(TestCase):
 
     def test_comment_form_exist(self):
         """Test CommentForm exist in the homepage view"""
-        self.assertContains(self.response.context, 'comment_form')
-
+        comment_form = self.response.context.get('comment_form')
+        self.assertTrue(comment_form)
+        self.assertFalse(self.response.context.get('comment-form'))
 
     def test_comment_posted(self):
         """Test a comment object created and saved in database"""

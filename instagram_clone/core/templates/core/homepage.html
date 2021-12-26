@@ -99,13 +99,15 @@
                   <small>4 HOURS AGO</small>
                 </div>
                 <div class="comment__add">
-                  <form action="#" method="post">
-                    <input
+                  <form action="{% url 'core:homepage' %}" method="post">
+                    {% csrf_token %}
+                    {% comment %} <input
                       type="text"
                       name="comment"
                       id="comment"
                       placeholder="Add a comment..."
-                    />
+                    /> {% endcomment %}
+                    {{ comment_form }}
                     <button type="submit">Post</button>
                   </form>
                 </div>
