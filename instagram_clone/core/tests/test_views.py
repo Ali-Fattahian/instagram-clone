@@ -66,12 +66,11 @@ class TestHomePageView(TestCase):
     def test_comment_posted(self):
         """Test a comment object created and saved in database and is connected to expected post"""
         post_response = self.test_client.post(reverse('core:homepage'), data={
-            'content':'idk'
+            'content':'idk',
+            'post_id':self.test_post1.id #the hidden input required
         })
-        content = render_to_string(post_response)
-        post_id = content['post_id'] # To retrieve post id in hidden input
-        comment = Comment.objects.create(content='idk', post = Post.objects.get(id=post_id), profile=self.test_profile2)
-        self.assertContains(post_response, 'type="hidden"', 1)
+        print(post_response) 
+        comment = Comment.objects.get(content='idk')
         self.assertTrue(comment)
         self.assertEqual(comment.post, self.test_post1)
         self.assertEqual(comment.profile, self.test_profile2)
