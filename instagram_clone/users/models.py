@@ -13,7 +13,7 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     slug = models.SlugField(editable=False)
 
     def save(self, *args, **kwargs):

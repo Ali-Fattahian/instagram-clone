@@ -4,7 +4,7 @@ from users.models import Profile
 
 class Post(models.Model):
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='post')
+        Profile, on_delete=models.CASCADE, related_name='posts')
     image = models.ImageField(upload_to='post_images/')
     date_created = models.DateTimeField(auto_now_add=True)
     content = models.TextField()

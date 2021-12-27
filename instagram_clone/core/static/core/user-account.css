@@ -15,11 +15,12 @@
       align-items: center;
       align-items: flex-start;
       padding-bottom: 3rem; }
-      #user-main .user-container .user-information .user-profile__picture .picture {
+      #user-main .user-container .user-information .user-profile__picture * {
+        object-fit: cover;
         width: 168px;
         height: 168px;
         border-radius: 50%;
-        background-color: #000; }
+        background-color: #dbdbdb; }
       #user-main .user-container .user-information .user-profile__details {
         display: grid;
         grid-template-columns: 1fr;
@@ -47,6 +48,12 @@
               border: #dbdbdb 1px solid;
               font-weight: bold;
               padding: 5px 9px; }
+              #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction .user-follow {
+                border: #0095f6 1px solid;
+                padding: 5px 14px;
+                border-radius: 3px;
+                color: #fff;
+                background-color: #0095f6; }
         #user-main .user-container .user-information .user-profile__details .user-follow-post-count {
           display: flex;
           justify-content: center;

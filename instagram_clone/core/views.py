@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
-from django.views.generic import View
+from django.views.generic import View, DetailView
 from .models import Post
+from users.models import Follow, Profile
 from .forms import CommentForm
 
 
@@ -44,3 +45,23 @@ class HomePageView(View):
                 return render(request, 'core/homepage.html', context)
         print('log in first!')
         return redirect('core:homepage')
+
+
+class UserProfileDetail(DetailView):
+    model = Profile
+    template_name = 'core/user-account.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = self.object
+        followers = Follow.objects.filter(followed_user=profile)
+        followings = Follow.objects.filter(following_user=profile)
+        if self.request.user.is_authenticated: #Little help for guests
+            is_follower = Follow.objects.filter(followed_user=profile, following_user=self.request.user.profile)
+            context['request_user_is_follower']=is_follower #checks if the person visiting is following that user or not
+        context['posts'] = Post.objects.filter(profile=self.object)
+        context['followers'] = followers
+        context['followings'] = followings
+        return context
+
+    context_object_name = 'profile'

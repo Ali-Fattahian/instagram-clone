@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.template.loader import render_to_string
 from core.forms import CommentForm
 from core.models import Post, Comment
 from users.models import Follow
@@ -18,7 +17,7 @@ class TestHomePageView(TestCase):
             username=self.username1, password=self.password1, email=self.email1, first_name=self.first_name1, last_name=self.last_name1)
         self.test_profile1 = self.test_user1.profile
         self.test_post1 = Post.objects.create(content='random string', profile=self.test_profile1,
-                                              image='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg')
+                                              image='post_images/demo-pic-1.jpg')
 
         self.username2 = 'test_user2'
         self.email2 = 'test_user2@gmail.com'
@@ -38,7 +37,7 @@ class TestHomePageView(TestCase):
             username=self.username3, password=self.password3, email=self.email3, first_name=self.first_name3, last_name=self.last_name3)
         self.test_profile3 = self.test_user3.profile
         self.test_post2 = Post.objects.create(content='random string', profile=self.test_profile3,
-                                              image='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg')
+                                              image='post_images/demo-pic-1.jpg')
 
         self.test_follow = Follow.objects.create(
             following_user=self.test_profile2, followed_user=self.test_profile1)
@@ -65,12 +64,33 @@ class TestHomePageView(TestCase):
 
     def test_comment_posted(self):
         """Test a comment object created and saved in database and is connected to expected post"""
-        post_response = self.test_client.post(reverse('core:homepage'), data={
-            'content':'idk',
-            'post_id':self.test_post1.id #the hidden input required
+        self.test_client.post(reverse('core:homepage'), data={
+            'content': 'idk',
+            'post_id': self.test_post1.id  # the hidden input required
         })
-        print(post_response) 
         comment = Comment.objects.get(content='idk')
         self.assertTrue(comment)
         self.assertEqual(comment.post, self.test_post1)
         self.assertEqual(comment.profile, self.test_profile2)
+
+
+class TestProfileDetail(TestCase):
+    def setUp(self):
+        self.username = 'test_user'
+        self.email = 'test_user@gmail.com'
+        self.password = 'testpassword'
+        self.first_name = 'first test'
+        self.last_name = 'last test'
+        self.test_user = get_user_model().objects.create_user(
+            username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
+        self.test_profile = self.test_user.profile
+        self.test_post = Post.objects.create(content='random string', profile=self.test_profile,
+                                              image='post_images/demo-pic-1.jpg')
+
+        self.test_client = Client()
+        self.get_response = self.test_client.get(reverse('core:user-account', args=(self.test_profile.slug, )), )
+    
+    def test_profile_detail_works(self):
+        """Test this view works and uses the right template"""
+        self.assertTemplateUsed('core/user-account.html')
+        self.assertEqual(self.get_response.status_code, 200)

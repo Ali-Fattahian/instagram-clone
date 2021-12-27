@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'core/homepage.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/user-account.css' %}" />
+{% endblock %}
+{% block title %}{{ profile.first_name|title }} {{ profile.last_name|title }}(@{{ profile.username }}){% endblock %}
+
+{% block content %}
+    <header id="header">
+      <div class="nav-container">
+        <section class="navbar">
+          <a href="#"
+            ><div class="instagram-icon">
+              <img
+                src="{% static 'images/instagram-wordmark-small.png' %}"
+                alt="Instagram"
+              /></div
+          ></a>
+          <div class="search">
+            <input
+              type="search"
+              name="searchquery"
+              id="searchquery"
+              placeholder="Search"
+            />
+          </div>
+          <div class="icons">
+            <a href="#"><i class="fas fa-home fa-lg"></i></a>
+            <a href="#"><i class="far fa-comments fa-lg"></i></a>
+            <a href="#"><i class="fas fa-plus fa-lg"></i></a
+            ><a href=""><i class="fas fa-search fa-lg"></i></a>
+            <a href="#"><i class="far fa-heart fa-lg"></i></a>
+            <a href="#"><i class="fas fa-user fa-lg"></i></a>
+          </div>
+        </section>
+      </div>
+    </header>
+    <main id="user-main">
+      <div class="user-container">
+        <div class="user-information">
+          <div class="user-profile__picture">
+            {% if profile.image %}
+            <img src="{{ profile.image.url }}" alt="{{ profile.username }} Profile Picture">
+            {% else %}
+            <div class="picture"></div>
+            {% endif %}
+          </div>
+          <div class="user-profile__details">
+            <div class="user-name-interaction">
+              <p class="user-username">{{ profile.username }}</p>
+              <div class="user-interaction">
+                {% if request.user.is_authenticated %}
+                {% if request_user_is_follower %}
+                <a href="#" class="user-send-message">Message</a>
+                <a href="#" class="user-unfollow"
+                  ><i class="fas fa-user-check"></i
+                ></a>
+                {% else %}
+                <a href="#" class="user-follow">Follow</a> 
+                {% endif %}
+                {% else %}
+                <a href="{% url 'users:log-in' %}" class="user-follow">Follow</a> <!--Guests should log in first before following someone-->
+                {% endif %}
+              </div>
+            </div>
+            <div class="user-follow-post-count">
+              <p><strong>{{ profile.posts.count }} </strong>posts</p>
+              <p><strong>{{ followers.count }} </strong>followers</p>
+              <p><strong>{{ followings.count }} </strong>following</p>
+            </div>
+            <div class="user-bio">
+              {{ profile.bio|slice:":310"}}
+            </div>
+          </div>
+        </div>
+        <div class="user-posts">
+          {% for post in profile.posts.all %}
+          <a href="#" class="user-post">
+            <img
+              src="{{ post.image.url }}"
+              alt="{{ post.profile.username }} Post"
+            />
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </main>
+{% endblock %}
