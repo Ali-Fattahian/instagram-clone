@@ -54,11 +54,19 @@
                 {% if request.user.is_authenticated %}
                 {% if request_user_is_follower %}
                 <a href="#" class="user-send-message">Message</a>
-                <a href="#" class="user-unfollow"
-                  ><i class="fas fa-user-check"></i
-                ></a>
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="user-unfollow" value="True">
+                  <button type="submit" class="user-unfollow"
+                    ><i class="fas fa-user-check"></i
+                  ></button>
+                </form>
                 {% else %}
-                <a href="#" class="user-follow">Follow</a> 
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="user-follow" value="True">
+                  <button type="submit" class="user-follow">Follow</button> 
+                </form>
                 {% endif %}
                 {% else %}
                 <a href="{% url 'users:log-in' %}" class="user-follow">Follow</a> <!--Guests should log in first before following someone-->

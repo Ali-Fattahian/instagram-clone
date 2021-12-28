@@ -1,5 +1,7 @@
-from django.shortcuts import redirect, render
-from django.views.generic import View, DetailView
+from django.http.response import HttpResponseBadRequest, HttpResponseNotAllowed
+from django.shortcuts import redirect, render, get_object_or_404
+from django.core.exceptions import ValidationError
+from django.views.generic import View
 from .models import Post
 from users.models import Follow, Profile
 from .forms import CommentForm
@@ -16,7 +18,8 @@ class HomePageView(View):
         for followed_user in followed_users:
             posts = Post.objects.filter(profile=followed_user) | posts
 
-        context = {'posts': posts.order_by('-date_created'), 'comment_form':CommentForm()}
+        context = {'posts': posts.order_by(
+            '-date_created'), 'comment_form': CommentForm()}
         return render(request, 'core/homepage.html', context)
 
     def post(self, request):
@@ -40,28 +43,52 @@ class HomePageView(View):
                 for followed_user in followed_users:
                     posts = Post.objects.filter(profile=followed_user) | posts
 
-                context = {'posts': posts.order_by('-date_created'), 'comment_form':comment_form}
+                context = {'posts': posts.order_by(
+                    '-date_created'), 'comment_form': comment_form}
                 print('show comment errors')
                 return render(request, 'core/homepage.html', context)
         print('log in first!')
         return redirect('core:homepage')
 
 
-class UserProfileDetail(DetailView):
-    model = Profile
-    template_name = 'core/user-account.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        profile = self.object
+class UserProfileDetail(View):
+    def get(self, request, slug):
+        profile = get_object_or_404(Profile, slug=slug)
+        context = dict()
         followers = Follow.objects.filter(followed_user=profile)
         followings = Follow.objects.filter(following_user=profile)
-        if self.request.user.is_authenticated: #Little help for guests
-            is_follower = Follow.objects.filter(followed_user=profile, following_user=self.request.user.profile)
-            context['request_user_is_follower']=is_follower #checks if the person visiting is following that user or not
-        context['posts'] = Post.objects.filter(profile=self.object)
+        if self.request.user.is_authenticated:  # Little help for guests
+            is_follower = Follow.objects.filter(
+                followed_user=profile, following_user=self.request.user.profile)
+            # checks if the person visiting is following that user or not
+            context['request_user_is_follower'] = is_follower
+        context['posts'] = Post.objects.filter(profile=profile)
         context['followers'] = followers
         context['followings'] = followings
-        return context
+        context['profile'] = profile
 
-    context_object_name = 'profile'
+        return render(request, 'core/user-account.html', context)
+
+    def post(self, request, slug):
+        profile = get_object_or_404(Profile, slug=slug)
+        follow_request = request.POST.get('user-follow')
+        unfollow_request = request.POST.get('user-unfollow')
+        if follow_request:
+            if Follow.objects.filter(followed_user=profile, following_user=request.user.profile).exists():
+                # print('you have already followed this user')
+                return redirect('core:user-account', slug=profile.slug)
+            else:
+                Follow.objects.create(
+                    followed_user=profile, following_user=request.user.profile)
+                print('follow accepted')
+                return redirect('core:user-account', slug=profile.slug)
+        elif unfollow_request:
+            follow_object = Follow.objects.filter(
+                followed_user=profile, following_user=request.user.profile)
+            if follow_object.exists():
+                follow_object.delete()
+                # print('successfully unfollowed')
+                return redirect('core:user-account', slug=profile.slug)
+            else:
+                raise ValidationError('You didn\'t follow this user')
+        raise ValidationError('You can either follow or unfollow a user')

@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.shortcuts import redirect
 from core.forms import CommentForm
 from core.models import Post, Comment
 from users.models import Follow
@@ -85,12 +86,31 @@ class TestProfileDetail(TestCase):
             username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
         self.test_profile = self.test_user.profile
         self.test_post = Post.objects.create(content='random string', profile=self.test_profile,
-                                              image='post_images/demo-pic-1.jpg')
+                                             image='post_images/demo-pic-1.jpg')
+
+        self.username2 = 'test_user2'
+        self.email2 = 'test_user2@gmail.com'
+        self.password2 = 'testpassword2'
+        self.first_name2 = 'first test2'
+        self.last_name2 = 'last test2'
+        self.test_user2 = get_user_model().objects.create_user(
+            username=self.username2, password=self.password2, email=self.email2, first_name=self.first_name2, last_name=self.last_name2)
+        self.test_profile2 = self.test_user2.profile
 
         self.test_client = Client()
-        self.get_response = self.test_client.get(reverse('core:user-account', args=(self.test_profile.slug, )), )
-    
+        self.get_response = self.test_client.get(
+            reverse('core:user-account', args=(self.test_profile.slug, )), )
+
     def test_profile_detail_works(self):
         """Test this view works and uses the right template"""
         self.assertTemplateUsed('core/user-account.html')
         self.assertEqual(self.get_response.status_code, 200)
+
+    def test_follow_works(self):
+        """Test Follow button works and doesn't allow users to follow someone more than once"""
+        self.test_client.force_login(user=self.test_user)
+        self.logged_in_test_response = self.test_client.post(reverse('core:user-account', args=(self.test_profile2.slug, )), data={
+            'user-follow': True
+        })
+        self.assertTrue(Follow.objects.filter(
+            followed_user=self.test_profile2, following_user=self.test_profile).exists())
