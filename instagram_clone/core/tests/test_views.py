@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.shortcuts import redirect
 from core.forms import CommentForm
 from core.models import Post, Comment
 from users.models import Follow
@@ -73,6 +72,13 @@ class TestHomePageView(TestCase):
         self.assertTrue(comment)
         self.assertEqual(comment.post, self.test_post1)
         self.assertEqual(comment.profile, self.test_profile2)
+
+    def test_home_page_for_not_authenticated(self):
+        """Test homepage shows the posts for not authenticated users"""
+        not_auth_user = Client()
+        response = not_auth_user.get(reverse('core:homepage'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('core/homepage.html')
 
 
 class TestProfileDetail(TestCase):
