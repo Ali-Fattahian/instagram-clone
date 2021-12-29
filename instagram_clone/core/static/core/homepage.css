@@ -103,6 +103,11 @@ input {
           padding: 14px; }
           #main .main__content-container .main__content .posts .post__interaction a {
             color: #000; }
+          #main .main__content-container .main__content .posts .post__interaction #post-like {
+            display: inline;} 
+          #main .main__content-container .main__content .posts .post__interaction #post-like button {
+            background-color: transparent;
+            border: none;}  
         #main .main__content-container .main__content .posts .post__likes {
           font-weight: bold;
           padding-left: 14px;

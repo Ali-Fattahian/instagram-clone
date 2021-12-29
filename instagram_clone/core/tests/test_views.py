@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from core.forms import CommentForm
-from core.models import Post, Comment
+from core.models import Post, Comment, LikePost
 from users.models import Follow
 
 
@@ -79,6 +79,16 @@ class TestHomePageView(TestCase):
         response = not_auth_user.get(reverse('core:homepage'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('core/homepage.html')
+
+    def test_post_like(self):
+        """Test post like feature works by clicking on heart icon for authenticated users"""
+
+        self.test_client.post(reverse('core:homepage'), data={
+            'like_post_id':self.test_post2.id
+        })
+
+        self.assertTrue(LikePost.objects.filter(profile=self.test_profile2, post=self.test_post2).exists())
+
 
 
 class TestProfileDetail(TestCase):

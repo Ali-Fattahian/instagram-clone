@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.views.generic import View
 from .models import Post
 from users.models import Follow, Profile
-from .forms import CommentForm
+from .forms import CommentForm, LikePostForm
 
 
 class HomePageView(View):
@@ -19,14 +19,15 @@ class HomePageView(View):
                 posts = Post.objects.filter(profile=followed_user) | posts
 
             context = {'posts': posts.order_by(
-                '-date_created'), 'comment_form': CommentForm()}
+                '-date_created'), 'comment_form': CommentForm(), 'like_post_form': LikePostForm()}
             return render(request, 'core/homepage.html', context)
         posts = Post.objects.all()
-        return render(request, 'core/homepage.html', {'posts':posts})
+        return render(request, 'core/homepage.html', {'posts': posts})
 
     def post(self, request):
         if request.user.is_authenticated:
             comment_form = CommentForm(request.POST)
+            like_post_form = LikePostForm(request.POST)
             if comment_form.is_valid():
                 form = comment_form.save(commit=False)
                 post_id = request.POST['post_id']
@@ -34,6 +35,13 @@ class HomePageView(View):
                 form.profile = request.user.profile
                 form.save()
                 print('comment added')
+                return redirect('core:homepage')
+            elif like_post_form.is_valid:
+                form = like_post_form.save(commit=False)
+                post_id = request.POST['like_post_id']
+                form.profile = request.user.profile
+                form.post = Post.objects.get(id=post_id)
+                form.save()
                 return redirect('core:homepage')
             else:
                 user_profile = request.user.profile
