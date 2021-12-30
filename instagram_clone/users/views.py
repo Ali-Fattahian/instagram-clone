@@ -25,7 +25,7 @@ class LogInView(View):
     def get(self, request):
         if request.user.is_authenticated:
             print('You are already logged in')
-            return redirect('users:sign-up')
+            return redirect('core:homepage')
         return render(request, 'users/login.html')
 
     def post(self, request):
@@ -34,6 +34,6 @@ class LogInView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('users:log-in')
+            return redirect('core:homepage')
         print('Invalid information')
         return render(request, 'users/login.html')
