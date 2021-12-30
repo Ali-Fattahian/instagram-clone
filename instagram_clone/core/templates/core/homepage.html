@@ -14,7 +14,7 @@
     <header id="header">
       <div class="nav-container">
         <section class="navbar">
-          <a href="#"
+          <a href="{% url 'core:homepage' %}"
             ><div class="instagram-icon">
               <img
                 src="{% static 'images/instagram-wordmark-small.png' %}"
@@ -50,7 +50,7 @@
                 <div class="post__profile-links">
                   <div class="poster__picture"></div>
                   <div class="poster__username">
-                    <a href="#">{{ post.profile.username }}</a>
+                    <a href="{% url 'core:user-account' post.profile.slug %}">{{ post.profile.username }}</a>
                   </div>
                 </div>
                 <div class="poster-more"><i class="fas fa-ellipsis-h"></i></div>
@@ -87,22 +87,14 @@
               <div class="post__comments">
                 <p class="comments__title">Comments</p>
                 <div class="comments">
+                  {% for comment in post.comments.all %}
                   <div class="comment">
-                    <a href="#" class="comment__author">ali_fattahian</a>
+                    <a href="{% url 'core:user-account' comment.profile.slug %}" class="comment__author">{{ comment.profile.username }}</a>
                     <p class="comment__content">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Odit minus et quos qui laudantium, tempore repudiandae sit
-                      dolor reprehenderit neque.
+                      {{ comment.content }}
                     </p>
                   </div>
-                  <div class="comment">
-                    <a href="#" class="comment__author">alice_dev</a>
-                    <p class="comment__content">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Odit minus et quos qui laudantium, tempore repudiandae sit
-                      dolor reprehenderit neque.
-                    </p>
-                  </div>
+                  {% endfor %}
                 </div>
                 <div class="post__date-created">
                   <small>4 HOURS AGO</small>
@@ -130,16 +122,18 @@
           </div>
           <div class="spacefiller"></div>
           <div class="suggestions">
+            {% if request.user.is_authenticated %}
             <div class="user-account">
               <div class="user-profile__picture">
                 <div class="img"></div>
               </div>
               <div class="user-info">
-                <a href="#">ali_fattahian</a>
-                <small>Ali Fattahian</small>
+                <a href="{% url 'core:user-account' request.user.profile.slug %}">{{ request.user.profile.username }}</a>
+                <small>{{ request.user.profile.first_name }} {{ request.user.profile.last_name }}</small>
               </div>
-              <a href="#">Switch</a>
+              <a href="{% url 'core:user-account' request.user.profile.slug %}">Switch</a>
             </div>
+            {% endif %}
             <div class="suggestion-accounts">
               <div class="suggestion-accounts__header">
                 <h4>Suggestions For You</h4>

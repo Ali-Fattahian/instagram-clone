@@ -54,7 +54,7 @@
                 {% if request.user.is_authenticated %}
                 {% if request_user_is_follower %}
                 <a href="#" class="user-send-message">Message</a>
-                <form method="post">
+                <form method="post" style="{% if request.user.profile == profile %} display:none;{% endif %}"><!--Temp should add an edit link instead of follow or unfollow for users profile page-->
                   {% csrf_token %}
                   <input type="hidden" name="user-unfollow" value="True">
                   <button type="submit" class="user-unfollow"
@@ -62,7 +62,7 @@
                   ></button>
                 </form>
                 {% else %}
-                <form method="post">
+                <form method="post" style="{% if request.user.profile == profile %} display:none;{% endif %}"><!--Temp should add an edit link instead of follow or unfollow for users profile page-->
                   {% csrf_token %}
                   <input type="hidden" name="user-follow" value="True">
                   <button type="submit" class="user-follow">Follow</button> 
