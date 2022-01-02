@@ -13,7 +13,8 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='profile_pictures/', blank=True, null=True)
     slug = models.SlugField(editable=False)
 
     def save(self, *args, **kwargs):
@@ -29,6 +30,12 @@ class Follow(models.Model):
         Profile, on_delete=models.CASCADE, related_name="followers")
     following_user = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name="followings")
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(check=~models.Q(followed_user=models.F(
+                'following_user')), name='A follow object with the same following and followed user can not be created'),
+        ]
 
     def __str__(self):
         return f'followed user:{self.followed_user}, following user:{self.following_user}'
