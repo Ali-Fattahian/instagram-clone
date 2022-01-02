@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.exceptions import ValidationError
 from django.views.generic import View
-from .models import Post
+from .models import Post, LikePost
 from users.models import Follow, Profile
 from .forms import CommentForm, LikePostForm
 
@@ -17,9 +17,14 @@ class HomePageView(View):
             posts = Post.objects.none()
             for followed_user in followed_users:
                 posts = Post.objects.filter(profile=followed_user) | posts
+            user_liked_posts=[]
+            for like_object in LikePost.objects.filter(profile=user_profile):
+                if like_object.post in posts:
+                    user_liked_posts.append(like_object.post)
 
             context = {'posts': posts.order_by(
-                '-date_created'), 'comment_form': CommentForm(), 'like_post_form': LikePostForm()}
+                '-date_created'), 'comment_form': CommentForm(), 'like_post_form': LikePostForm(), 'post_likes':user_liked_posts}
+
             return render(request, 'core/homepage.html', context)
         posts = Post.objects.all()
         return render(request, 'core/homepage.html', {'posts': posts})
