@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.forms import fields
 from django.utils.text import slugify
 
 
@@ -35,6 +36,8 @@ class Follow(models.Model):
         constraints = [
             models.CheckConstraint(check=~models.Q(followed_user=models.F(
                 'following_user')), name='A follow object with the same following and followed user can not be created'),
+            models.UniqueConstraint(fields=[
+                                    'followed_user', 'following_user'], name='Can\'t follow the same user more than once')
         ]
 
     def __str__(self):

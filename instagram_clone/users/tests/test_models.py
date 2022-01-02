@@ -69,6 +69,6 @@ class TestFollowModel(TestCase):
         """Test a user can't follow another user more than once"""
         Follow.objects.create(following_user=self.test_profile1,
                               followed_user=self.test_profile2)
-        with self.assertRaises(IntegrityError, msg='Can\'t follow same user twice'):
+        with self.assertRaises(IntegrityError, msg='Can\'t follow the same user more than once'):
             Follow.objects.create(following_user=self.test_profile1,
                                   followed_user=self.test_profile2)
