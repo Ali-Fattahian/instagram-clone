@@ -55,10 +55,20 @@ class TestFollowModel(TestCase):
 
     def test_check_users_followers(self):
         """Check following users exist in followed user 'follow section'"""
-        self.assertEqual(self.test_profile2.followings.all()[0].id, self.test_profile1.id)
+        self.assertEqual(self.test_profile2.followings.all()
+                         [0].id, self.test_profile1.id)
         self.assertEqual(self.test_profile1.followers.count(), 1)
 
     def test_user_follow_self(self):
         """Test an entity with the same user as followed and following fields can't be created"""
         with self.assertRaises(IntegrityError, msg='A follow object with the same following and followed user can not be created'):
-            Follow.objects.create(followed_user=self.test_profile1, following_user=self.test_profile1)
+            Follow.objects.create(
+                followed_user=self.test_profile1, following_user=self.test_profile1)
+
+    def test_user_follow_more_than_once(self):
+        """Test a user can't follow another user more than once"""
+        Follow.objects.create(following_user=self.test_profile1,
+                              followed_user=self.test_profile2)
+        with self.assertRaises(IntegrityError, msg='Can\'t follow same user twice'):
+            Follow.objects.create(following_user=self.test_profile1,
+                                  followed_user=self.test_profile2)
