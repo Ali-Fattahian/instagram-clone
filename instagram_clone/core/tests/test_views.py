@@ -84,11 +84,11 @@ class TestHomePageView(TestCase):
         """Test post like feature works by clicking on heart icon for authenticated users"""
 
         self.test_client.post(reverse('core:homepage'), data={
-            'like_post_id':self.test_post2.id
+            'like_post_id': self.test_post2.id
         })
 
-        self.assertTrue(LikePost.objects.filter(profile=self.test_profile2, post=self.test_post2).exists())
-
+        self.assertTrue(LikePost.objects.filter(
+            profile=self.test_profile2, post=self.test_post2).exists())
 
 
 class TestProfileDetail(TestCase):
@@ -130,3 +130,26 @@ class TestProfileDetail(TestCase):
         })
         self.assertTrue(Follow.objects.filter(
             followed_user=self.test_profile2, following_user=self.test_profile).exists())
+
+
+class PostDetailView(TestCase):
+    def setUp(self):
+        self.username = 'test_user'
+        self.email = 'test_user@gmail.com'
+        self.password = 'testpassword'
+        self.first_name = 'first test'
+        self.last_name = 'last test'
+        self.test_user = get_user_model().objects.create_user(
+            username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
+        self.test_profile = self.test_user.profile
+        self.test_post = Post.objects.create(content='random string', profile=self.test_profile,
+                                             image='post_images/demo-pic-1.jpg')
+        self.test_client = Client()
+        self.test_client.force_login(user=self.test_user)
+        self.get_response = self.test_client.get(
+            reverse('core:post'), args=(self.test_post.id, ))
+
+    def test_post_detail_works(self):
+        """Test this view works and uses the right template"""
+        self.assertEqual(self.get_response.status_code, 200)
+        self.assertTemplateUsed('core/post-detail.html')
