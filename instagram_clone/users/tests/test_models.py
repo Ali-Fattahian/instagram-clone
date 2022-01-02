@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.db.utils import IntegrityError
 from users.models import Profile, Follow
 
 
@@ -56,3 +57,8 @@ class TestFollowModel(TestCase):
         """Check following users exist in followed user 'follow section'"""
         self.assertEqual(self.test_profile2.followings.all()[0].id, self.test_profile1.id)
         self.assertEqual(self.test_profile1.followers.count(), 1)
+
+    def test_user_follow_self(self):
+        """Test an entity with the same user as followed and following fields can't be created"""
+        with self.assertRaises(IntegrityError, msg='A follow object with the same following and followed user can not be created'):
+            Follow.objects.create(followed_user=self.test_profile1, following_user=self.test_profile1)
