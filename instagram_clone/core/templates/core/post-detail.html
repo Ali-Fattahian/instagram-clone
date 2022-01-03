@@ -14,12 +14,12 @@
     <div class="post">
       <div class="post-top">
         <div class="post__profile-links">
-          <div class="poster__picture"></div>
+          <img class="poster__picture" src="{{ post.profile.image.url }}" alt="{{ post.profile.username }}" />
           <div class="poster__username">
             <a href="{% url 'core:user-account' post.profile.slug %}">{{ post.profile.username }}</a>
           </div>
         </div>
-        <a href="#" class="poster-return"><i class="fa fa-angle-left"></i></a>
+        <a href="{% url 'core:user-account' post.profile.slug %}" class="poster-return"><i class="fa fa-angle-left"></i></a>
       </div>
       <div class="post-details">
         <div class="post__picture">
@@ -48,20 +48,20 @@
               {% endfor %}
             </div>
             <div class="comment__add">
-              <form action="#" method="post">
-                <input
-                  type="text"
-                  name="comment"
-                  id="comment"
-                  placeholder="Add a comment..."
-                />
+              <form method="post">
+                {% csrf_token %}
+                {{ comment_form }}
                 <button type="submit">Post</button>
               </form>
             </div>
           </div>
           <div class="post__interaction">
             <div class="post__interaction-left">
-              <a href="#"><i class="far fa-heart fa-lg"></i></a>
+              <form id="post-like" method="post">
+                {% csrf_token %}
+                {{ like_post_form }}
+                <button type="submit"><a href="#"><i class="far fa-heart fa-lg"></i></a></button>
+              </form>
               <a href="#"><i class="fa fa-commenting-o fa-lg"></i></a>
               <a href="#"><i class="far fa-comments fa-lg"></i></a>
             </div>
@@ -69,7 +69,7 @@
               <a href="#"><i class="far fa-save fa-lg"></i></a>
             </div>
           </div>
-          <div class="post__likes">2100 likes</div>
+          <div class="post__likes">{{ post.post_like.count }} likes</div>
           <div class="post__date-created">
             <small>4 HOURS AGO</small>
           </div>

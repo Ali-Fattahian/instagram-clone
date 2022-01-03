@@ -73,8 +73,15 @@ input {
   align-items: center;
   justify-content: space-between;
   padding: 14px; }
+  
   .post__interaction a {
     color: #000; }
+
+  .post .post-details .under-picture .post__interaction #post-like {
+    display: inline; } 
+  .post .post-details .under-picture .post__interaction #post-like button {
+  background-color: transparent;
+  border: none; }
 
 .post__likes {
   font-weight: bold;
@@ -97,6 +104,7 @@ input {
   padding-left: 14px;
   margin: 0.4rem 0;
   border-bottom: 1px solid #e1e1e1;
+  width: 100%;
   padding-bottom: 0.5rem; }
   .post__comments .comments__title {
     color: #8e8e8e; }

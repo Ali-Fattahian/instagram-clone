@@ -113,7 +113,9 @@ class PostDetailView(View):
     def get(self, request, slug, pk):
         post = get_object_or_404(Post, pk=pk)
         context = {
-            'post':post
+            'post':post,
+            'comment_form':CommentForm(),
+            'like_post_form':LikePostForm(),
         }
         return render(request, 'core/post-detail.html', context)
 
