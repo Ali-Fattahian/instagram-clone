@@ -146,8 +146,7 @@ class PostDetailView(TestCase):
                                              image='post_images/demo-pic-1.jpg')
         self.test_client = Client()
         self.test_client.force_login(user=self.test_user)
-        self.get_response = self.test_client.get(
-            reverse('core:post'), args=(self.test_post.id, ))
+        self.get_response = self.test_client.get(reverse('core:post', args = (self.test_profile.slug, self.test_post.pk)))
 
     def test_post_detail_works(self):
         """Test this view works and uses the right template"""

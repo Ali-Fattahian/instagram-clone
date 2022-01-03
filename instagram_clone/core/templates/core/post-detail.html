@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Instagram
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'core/homepage.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/post-detail.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="post">
+      <div class="post-top">
+        <div class="post__profile-links">
+          <div class="poster__picture"></div>
+          <div class="poster__username">
+            <a href="#">joe_photographer</a>
+          </div>
+        </div>
+        <a class="poster-return"><i class="fa fa-angle-left"></i></a>
+      </div>
+      <div class="post-details">
+        <div class="post__picture">
+          <img
+            src="../dist/images/demo-pic-1.jpg"
+            alt="joe_photographer picture"
+          />
+        </div>
+        <div class="under-picture">
+          <div class="post__bio">
+            <a href="#">joe_photographer</a>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore
+              inventore debitis ad perspiciatis cum est deleniti tenetur
+              asperiores pariatur optio illum, exercitationem beatae ab natus
+              similique magni rem ex soluta commodi nostrum numquam repudiandae
+              doloribus ullam! Eligendi at ratione placeat.
+            </p>
+          </div>
+          <div class="post__comments">
+            <p class="comments__title">Comments</p>
+            <div class="comments">
+              <div class="comment">
+                <a href="#" class="comment__author">ali_fattahian</a>
+                <p class="comment__content">
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit
+                  minus et quos qui laudantium, tempore repudiandae sit dolor
+                  reprehenderit neque.
+                </p>
+              </div>
+              <div class="comment">
+                <a href="#" class="comment__author">alice_dev</a>
+                <p class="comment__content">
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit
+                  minus et quos qui laudantium, tempore repudiandae sit dolor
+                  reprehenderit neque.
+                </p>
+              </div>
+            </div>
+            <div class="comment__add">
+              <form action="#" method="post">
+                <input
+                  type="text"
+                  name="comment"
+                  id="comment"
+                  placeholder="Add a comment..."
+                />
+                <button type="submit">Post</button>
+              </form>
+            </div>
+          </div>
+          <div class="post__interaction">
+            <div class="post__interaction-left">
+              <a href="#"><i class="far fa-heart fa-lg"></i></a>
+              <a href="#"><i class="fa fa-commenting-o fa-lg"></i></a>
+              <a href="#"><i class="far fa-comments fa-lg"></i></a>
+            </div>
+            <div class="post__interaction-right">
+              <a href="#"><i class="far fa-save fa-lg"></i></a>
+            </div>
+          </div>
+          <div class="post__likes">2100 likes</div>
+          <div class="post__date-created">
+            <small>4 HOURS AGO</small>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

@@ -107,3 +107,15 @@ class UserProfileDetail(View):
             else:
                 raise ValidationError('You didn\'t follow this user')
         raise ValidationError('You can either follow or unfollow a user')
+
+
+class PostDetailView(View):
+    def get(self, request, slug, pk):
+        post = get_object_or_404(Post, pk=pk)
+        context = {
+            'post':post
+        }
+        return render(request, 'core/post-detail.html', context)
+
+    def post(self, request, pk):
+        pass
