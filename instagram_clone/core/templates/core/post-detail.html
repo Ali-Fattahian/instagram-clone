@@ -16,48 +16,36 @@
         <div class="post__profile-links">
           <div class="poster__picture"></div>
           <div class="poster__username">
-            <a href="#">joe_photographer</a>
+            <a href="{% url 'core:user-account' post.profile.slug %}">{{ post.profile.username }}</a>
           </div>
         </div>
-        <a class="poster-return"><i class="fa fa-angle-left"></i></a>
+        <a href="#" class="poster-return"><i class="fa fa-angle-left"></i></a>
       </div>
       <div class="post-details">
         <div class="post__picture">
           <img
-            src="../dist/images/demo-pic-1.jpg"
-            alt="joe_photographer picture"
+            src="{{ post.image.url }}"
+            alt="{{ post.profile.username }} post image"
           />
         </div>
         <div class="under-picture">
           <div class="post__bio">
-            <a href="#">joe_photographer</a>
+            <a href="{% url 'core:user-account' post.profile.slug %}">{{ post.profile.username }}</a>
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore
-              inventore debitis ad perspiciatis cum est deleniti tenetur
-              asperiores pariatur optio illum, exercitationem beatae ab natus
-              similique magni rem ex soluta commodi nostrum numquam repudiandae
-              doloribus ullam! Eligendi at ratione placeat.
+              {{ post.content|linebreaks }}
             </p>
           </div>
           <div class="post__comments">
             <p class="comments__title">Comments</p>
             <div class="comments">
+              {% for comment in post.comments.all %}
               <div class="comment">
-                <a href="#" class="comment__author">ali_fattahian</a>
+                <a href="{% url 'core:user-account' comment.profile.slug %}" class="comment__author">{{ comment.profile.username }}</a>
                 <p class="comment__content">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit
-                  minus et quos qui laudantium, tempore repudiandae sit dolor
-                  reprehenderit neque.
+                  {{ comment.content|linebreaks }}
                 </p>
               </div>
-              <div class="comment">
-                <a href="#" class="comment__author">alice_dev</a>
-                <p class="comment__content">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit
-                  minus et quos qui laudantium, tempore repudiandae sit dolor
-                  reprehenderit neque.
-                </p>
-              </div>
+              {% endfor %}
             </div>
             <div class="comment__add">
               <form action="#" method="post">

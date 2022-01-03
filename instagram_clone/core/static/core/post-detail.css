@@ -113,6 +113,9 @@ input {
 .post__date-created {
   padding-left: 14px; }
 
+.poster-return {
+  color: #0095f6; }
+
 @media screen and (max-width: 950px) {
   .post .post-top {
     width: 100%; }
