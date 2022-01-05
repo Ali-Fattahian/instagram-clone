@@ -14,7 +14,9 @@
     <div class="post">
       <div class="post-top">
         <div class="post__profile-links">
+          {% if post.profile.image %}
           <img class="poster__picture" src="{{ post.profile.image.url }}" alt="{{ post.profile.username }}" />
+          {% endif %}
           <div class="poster__username">
             <a href="{% url 'core:user-account' post.profile.slug %}">{{ post.profile.username }}</a>
           </div>

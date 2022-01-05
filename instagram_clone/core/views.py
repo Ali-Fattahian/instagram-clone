@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.views.generic import View
 from .models import Post, LikePost
@@ -63,7 +65,7 @@ class HomePageView(View):
                 print('show comment errors')
                 return render(request, 'core/homepage.html', context)
         print('log in first!')
-        return redirect('core:homepage')
+        return redirect('users:log-in')
 
 
 class UserProfileDetail(View):
@@ -119,5 +121,30 @@ class PostDetailView(View):
         }
         return render(request, 'core/post-detail.html', context)
 
-    def post(self, request, pk):
-        pass
+    def post(self, request, slug, pk):
+        if request.user.is_authenticated:
+            comment_form = CommentForm(request.POST)
+            like_post_form = LikePostForm(request.POST)
+            post = get_object_or_404(Post, pk=pk)
+            if comment_form.is_valid():
+                form = comment_form.save(commit=False)
+                form.post = post
+                form.profile = request.user.profile
+                form.save()
+                print('comment added')
+                return HttpResponseRedirect(reverse('core:post', args=[slug, post.pk]))
+            elif like_post_form.is_valid:
+                form = like_post_form.save(commit=False)
+                form.post = post
+                form.profile = request.user.profile
+                form.save()
+                return HttpResponseRedirect(reverse('core:post', args=[slug, post.pk]))
+            else:
+                context = {
+                    'post': post,
+                    'comment_form': comment_form,
+                    'like_post_form': like_post_form
+                }
+                return render(request, 'core/post-detail.html', context)
+        print('log in first!')
+        return redirect('users:log-in')
