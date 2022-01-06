@@ -80,7 +80,7 @@
               </div>
               <div class="post__likes">{{ post.post_like.count }} likes</div>
               <div class="post__bio">
-                <a href="#">{{ post.profile.username }}</a>
+                <a href="{% url 'core:user-account' post.profile.slug %}">{{ post.profile.username }}</a>
                 <p>
                   {{ post.content }}
                 </p>

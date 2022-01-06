@@ -120,10 +120,13 @@ class UserProfileDetail(View):
 class PostDetailView(View):
     def get(self, request, slug, pk):
         post = get_object_or_404(Post, pk=pk)
+        if request.user.is_authenticated:
+            is_post_like = LikePost.objects.filter(profile=request.user.profile, post = post)
         context = {
             'post':post,
             'comment_form':CommentForm(),
             'like_post_form':LikePostForm(),
+            'is_post_like':is_post_like or None
         }
         return render(request, 'core/post-detail.html', context)
 
@@ -140,6 +143,10 @@ class PostDetailView(View):
                 print('comment added')
                 return HttpResponseRedirect(reverse('core:post', args=[slug, post.pk]))
             elif like_post_form.is_valid:
+                is_post_like = LikePost.objects.filter(profile=request.user.profile, post = post)
+                if is_post_like:
+                    is_post_like.delete()
+                    return HttpResponseRedirect(reverse('core:post', args=[slug, post.pk]))
                 form = like_post_form.save(commit=False)
                 form.post = post
                 form.profile = request.user.profile
