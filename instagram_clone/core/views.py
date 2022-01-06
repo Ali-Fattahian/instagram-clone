@@ -44,11 +44,17 @@ class HomePageView(View):
                 print('comment added')
                 return redirect('core:homepage')
             elif like_post_form.is_valid:
-                form = like_post_form.save(commit=False)
-                post_id = request.POST['like_post_id']
-                form.profile = request.user.profile
-                form.post = Post.objects.get(id=post_id)
-                form.save()
+                if request.POST.get('like_post_id'):
+                    form = like_post_form.save(commit=False)
+                    post_id = request.POST['like_post_id']
+                    form.profile = request.user.profile
+                    form.post = Post.objects.get(id=post_id)
+                    form.save()
+                elif request.POST.get('dislike_post_id'):
+                    post_id = request.POST['dislike_post_id']
+                    post=Post.objects.get(pk=post_id)
+                    like_object = LikePost.objects.get(profile=request.user.profile, post=post)
+                    like_object.delete()
                 return redirect('core:homepage')
             else:
                 user_profile = request.user.profile
