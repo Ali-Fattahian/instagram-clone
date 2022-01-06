@@ -30,7 +30,7 @@
             />
           </div>
           <div class="icons">
-            <a href="#"><i class="fas fa-home fa-lg"></i></a>
+            <a href="{% url 'core:homepage' %}"><i class="fas fa-home fa-lg"></i></a>
             <a href="#"><i class="far fa-comments fa-lg"></i></a>
             <a href="#"><i class="fas fa-plus fa-lg"></i></a
             ><a href=""><i class="fas fa-search fa-lg"></i></a>
@@ -48,7 +48,9 @@
             <div class="post">
               <div class="post-top">
                 <div class="post__profile-links">
-                  <div class="poster__picture"></div>
+                  {% if post.profile.image %}
+                  <img class="poster__picture" src="{{ post.profile.image.url }}" />
+                  {% endif %}
                   <div class="poster__username">
                     <a href="{% url 'core:user-account' post.profile.slug %}">{{ post.profile.username }}</a>
                   </div>
