@@ -12,6 +12,7 @@ class HomePageView(View):
     def get(self, request):
         if request.user.is_authenticated:
             user_profile = request.user.profile
+            newest_users = Profile.objects.all().order_by('-id')[:3] # For showing suggestions
             all_related_follow_objects = user_profile.followings.all()
             followed_users = []
             for follow_object in all_related_follow_objects:
@@ -25,7 +26,7 @@ class HomePageView(View):
                     user_liked_posts.append(like_object.post)
 
             context = {'posts': posts.order_by(
-                '-date_created'), 'comment_form': CommentForm(), 'like_post_form': LikePostForm(), 'post_likes':user_liked_posts}
+                '-date_created'), 'comment_form': CommentForm(), 'like_post_form': LikePostForm(), 'post_likes':user_liked_posts, 'suggested_users':newest_users}
 
             return render(request, 'core/homepage.html', context)
         posts = Post.objects.all()

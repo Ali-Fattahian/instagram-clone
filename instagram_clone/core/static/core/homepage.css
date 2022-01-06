@@ -174,12 +174,20 @@ input {
   margin-top: 1.5rem; }
 
 .suggested-users {
+  margin-bottom: .5rem;
   display: flex;
   align-items: center;
   justify-content: space-between; }
+  .suggested-users button {
+    color: #0095f6;
+    border: none;
+    background-color: transparent; }
   .suggested-users a {
     color: #0095f6;
     font-size: 14px; }
+
+.suggested-login {
+  color: #0095f6; }
 
 .suggested-users__profile-picture {
   height: 2rem;
