@@ -30,6 +30,13 @@ class LikePost(models.Model):
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='post_like')
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['profile', 'post'], name='Can\'t like same the post twice'
+            )
+        ]
+
     def __str__(self):
         return f'profile {self.profile.username} liked post id {self.post.id} by {self.post.profile.username}'
 
