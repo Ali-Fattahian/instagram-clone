@@ -20,6 +20,10 @@ class Post(models.Model):
         now_aware = now.replace(tzinfo=datetime.timezone.utc) #Add UTC to add similar to django datetimefield default behavior
         return datetime_subtractor(now_aware, self.date_created)
 
+    @property
+    def date_created_ago_format(self):
+        """A property that shows creation date and time of a post in 'ago' format"""
+        return datetime_generator(self.date_created_clean, self.date_created)
 
 class Comment(models.Model):
     content = models.TextField()

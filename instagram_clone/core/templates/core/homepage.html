@@ -100,7 +100,7 @@
                   {% endfor %}
                 </div>
                 <div class="post__date-created">
-                  <small>4 HOURS AGO</small>
+                  <small>{{ post.date_created_ago_format }}</small>
                 </div>
                 <div class="comment__add">
                   <form action="{% url 'core:homepage' %}" method="post">

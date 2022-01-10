@@ -77,7 +77,7 @@
           </div>
           <div class="post__likes">{{ post.post_like.count }} likes</div>
           <div class="post__date-created">
-            <small>4 HOURS AGO</small>
+            <small>{{ post.date_created_ago_format }}</small>
           </div>
         </div>
       </div>

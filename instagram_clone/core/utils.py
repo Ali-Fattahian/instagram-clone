@@ -33,3 +33,38 @@ def datetime_subtractor(new_datetime, old_datetime):
 		answer['seconds'] = 0
 
 	return answer
+
+def datetime_generator(datetime_dict, date_created):
+    """This function changes the format of datetime dictionary(from datetime_subtractor) given to it, to ...ago format"""
+    days = datetime_dict.get('days')
+    hours = datetime_dict.get('hours')
+    minutes = datetime_dict.get('minutes')
+    seconds = datetime_dict.get('seconds')
+
+    if days > 0:
+        if days == 7:
+            return 'a week ago'
+        elif days == 1:
+            return 'yesterday'
+        elif 1 < days < 7:
+            return f'{days} days ago'
+        elif days > 7:
+            return date_created
+    elif days == 0:  # 23 hours and less
+        if hours > 0:
+            if hours == 1:
+                return 'an hour ago'
+            elif 1 < hours < 24:
+                return f'{hours} hours ago'
+        elif hours == 0:  # 59 minutes and less
+            if minutes > 0:
+                if minutes == 1:
+                    return 'a minute ago'
+                elif 1 < minutes < 60:
+                    return f'{minutes} minutes ago'
+            elif minutes == 0:  # 59 seconds and less
+                if seconds > 0:
+                    if seconds == 1:
+                        return 'a seconds ago'
+                    elif 1 < seconds < 60:
+                        return f'{seconds} seconds ago'
