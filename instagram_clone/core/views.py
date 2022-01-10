@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.views.generic import View
+from django.db.models import Count
 from .models import Post, LikePost
 from users.models import Follow, Profile
 from .forms import CommentForm, LikePostForm
@@ -29,7 +30,8 @@ class HomePageView(View):
                 '-date_created'), 'comment_form': CommentForm(), 'like_post_form': LikePostForm(), 'post_likes':user_liked_posts, 'suggested_users':newest_users}
 
             return render(request, 'core/homepage.html', context)
-        posts = Post.objects.all()
+        posts = Post.objects.annotate(likes=Count('post_like')).order_by('-likes') #Show posts for non-auth users based on 'number of likes' or 'number of related LikePost objects to each post' order 
+
         return render(request, 'core/homepage.html', {'posts': posts})
 
     def post(self, request):
