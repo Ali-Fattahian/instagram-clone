@@ -1,5 +1,7 @@
 from django.db import models
+import datetime
 from users.models import Profile
+from .utils import *
 
 
 class Post(models.Model):
@@ -11,6 +13,12 @@ class Post(models.Model):
 
     def __str__(self):
         return f'Post id:{self.id} | author:{self.profile.username}'
+
+    @property
+    def date_created_clean(self):
+        now = datetime.datetime.now()
+        now_aware = now.replace(tzinfo=datetime.timezone.utc) #Add UTC to add similar to django datetimefield default behavior
+        return datetime_subtractor(now_aware, self.date_created)
 
 
 class Comment(models.Model):
