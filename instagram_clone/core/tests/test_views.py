@@ -146,9 +146,29 @@ class PostDetailView(TestCase):
                                              image='post_images/demo-pic-1.jpg')
         self.test_client = Client()
         self.test_client.force_login(user=self.test_user)
-        self.get_response = self.test_client.get(reverse('core:post', args = (self.test_profile.slug, self.test_post.pk)))
+        self.get_response = self.test_client.get(
+            reverse('core:post', args=(self.test_profile.slug, self.test_post.pk)))
 
     def test_post_detail_works(self):
         """Test this view works and uses the right template"""
         self.assertEqual(self.get_response.status_code, 200)
         self.assertTemplateUsed('core/post-detail.html')
+
+
+class AddPostView(TestCase):
+    def setUP(self):
+        self.username = 'test_user'
+        self.email = 'test_user@gmail.com'
+        self.password = 'testpassword'
+        self.first_name = 'first test'
+        self.last_name = 'last test'
+        self.test_user = get_user_model().objects.create_user(
+            username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
+        self.test_profile = self.test_user.profile
+        self.test_client = Client()
+        self.get_request = self.test_client.get(reverse('core:add-post'))
+
+    def test_get_post_add_view(self):
+        """Test post add view works for get request"""
+        self.assertEqual(self.get_request.status_code, 200)
+        self.assertTemplateUsed('core/new-post.html')
