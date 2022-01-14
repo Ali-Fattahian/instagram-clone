@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.views.generic import View
+# from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from .models import Post, LikePost
 from users.models import Follow, Profile
@@ -164,3 +165,11 @@ class PostDetailView(View):
                 return render(request, 'core/post-detail.html', context)
         print('log in first!')
         return redirect('users:log-in')
+
+
+class AddPostView(View):
+    def get(self, request):
+        return render(request, 'core/new-post.html')
+
+    def post(self, request):
+        pass

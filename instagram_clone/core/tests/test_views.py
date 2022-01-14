@@ -156,7 +156,7 @@ class PostDetailView(TestCase):
 
 
 class AddPostView(TestCase):
-    def setUP(self):
+    def setUp(self):
         self.username = 'test_user'
         self.email = 'test_user@gmail.com'
         self.password = 'testpassword'
@@ -166,9 +166,10 @@ class AddPostView(TestCase):
             username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
         self.test_profile = self.test_user.profile
         self.test_client = Client()
-        self.get_request = self.test_client.get(reverse('core:add-post'))
+        self.test_client.force_login(user=self.test_user)
+        self.get_response = self.test_client.get(reverse('core:add-post'))
 
     def test_get_post_add_view(self):
         """Test post add view works for get request"""
-        self.assertEqual(self.get_request.status_code, 200)
+        self.assertEqual(self.get_response.status_code, 200)
         self.assertTemplateUsed('core/new-post.html')

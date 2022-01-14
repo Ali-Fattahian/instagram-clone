@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'core/new-post.css' %}" />
+{% endblock %}
+
+{% block title %}
+    Create new post • Instagram
+{% endblock %}
+
+{% block content %}
+    <main id="main">
+      <form method="post" class="post-form">
+        <section id="main-top">
+          <div class="main-top__links-container">
+            <div class="top-link__left">
+              <a href="#"><i class="fa fa-arrow-left"></i></a>
+            </div>
+            <div class="top-link__middle"><h4>Create new post</h4></div>
+            <div class="top-link__right">
+              <button type="submit">Share</button>
+            </div>
+          </div>
+        </section>
+        <section id="main-bottom">
+          <section id="post-form-left">
+            <div class="add-image__container">
+              <input type="file" name="post-image" id="post-image" accept="image/*" />
+              <label for="post-image" class="btn">Upload a picture</label>
+            </div>
+          </section>
+          <section id="post-form-right">
+            <div class="add-caption">
+                <div class="user-profile">
+                    <div class="profile-picture"></div>
+                    <div class="profile-username"><a href="#">joe_photographer</a></div>
+                </div>
+              <input
+                type="text"
+                name="post-caption"
+                id="post-caption"
+                placeholder="Write a caption..."
+              />
+            </div>
+          </section>
+        </section>
+      </form>
+    </main>
+{% endblock %}
