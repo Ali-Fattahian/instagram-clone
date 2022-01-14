@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.views.generic import View
-# from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from .models import Post, LikePost
 from users.models import Follow, Profile
@@ -167,9 +167,22 @@ class PostDetailView(View):
         return redirect('users:log-in')
 
 
-class AddPostView(View):
+class AddPostView(LoginRequiredMixin, View):
+    login_url = 'users:log-in'
+
     def get(self, request):
         return render(request, 'core/new-post.html')
 
     def post(self, request):
-        pass
+        post_content = request.POST.get('post-caption')
+        post_image = request.FILES.get('post-image')
+        post_profile = request.user.profile
+        post = Post(profile=post_profile, content=post_content, image=post_image)
+        try:
+            post.full_clean()
+            post.save()
+            print('Post created successfully')
+            return redirect('core:user-account', slug=post_profile.slug)
+        except ValidationError:
+            print('invalid data')
+            return render(request, 'core/new-post.html')

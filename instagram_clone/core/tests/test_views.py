@@ -173,3 +173,12 @@ class AddPostView(TestCase):
         """Test post add view works for get request"""
         self.assertEqual(self.get_response.status_code, 200)
         self.assertTemplateUsed('core/new-post.html')
+
+    def test_post_added(self):
+        """Test post added to database after using add post view"""
+        post_request = self.test_client.post(reverse('core:add-post'), data={
+            'post-image': 'images/demo-pic-1.jpg',
+            'post-caption': 'some test'
+        })
+        post = Post.objects.get(content='some test')
+        self.assertTrue(post)

@@ -11,7 +11,8 @@
 
 {% block content %}
     <main id="main">
-      <form method="post" class="post-form">
+      <form method="post" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
         <section id="main-top">
           <div class="main-top__links-container">
             <div class="top-link__left">
