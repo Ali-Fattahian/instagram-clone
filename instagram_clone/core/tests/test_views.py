@@ -1,6 +1,10 @@
+import os
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from unittest.mock import MagicMock
+from django.core.files import File
+from django.conf import settings
 from core.forms import CommentForm
 from core.models import Post, Comment, LikePost
 from users.models import Follow
@@ -169,6 +173,7 @@ class AddPostView(TestCase):
         self.test_client.force_login(user=self.test_user)
         self.get_response = self.test_client.get(reverse('core:add-post'))
 
+
     def test_get_post_add_view(self):
         """Test post add view works for get request"""
         self.assertEqual(self.get_response.status_code, 200)
@@ -176,9 +181,21 @@ class AddPostView(TestCase):
 
     def test_post_added(self):
         """Test post added to database after using add post view"""
-        post_request = self.test_client.post(reverse('core:add-post'), data={
-            'post-image': 'images/demo-pic-1.jpg',
+        self.test_client.post(reverse('core:add-post'), data={
+            'post-image':MagicMock(spec=File, name='FileMock'),
             'post-caption': 'some test'
         })
+
+        os.remove(settings.BASE_DIR / 'uploaded_files/post_images/post-image') #remove the created file called post-image
         post = Post.objects.get(content='some test')
         self.assertTrue(post)
+
+    def test_post_not_added(self):
+        """Test post object can not be created if the user is not authenticated"""
+        test_client2 = Client()
+        test_client2.post(reverse('core:add-post'), data= {
+            'post-caption':'some test',
+            'post-image':MagicMock(spec=File, name='FileMock')
+        })
+
+        self.assertFalse(Post.objects.filter(content='some test'))
