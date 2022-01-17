@@ -44,3 +44,25 @@ class TestLoginView(TestCase):
             'password': self.password
         })
         self.assertTrue(self.test_user.is_authenticated)
+
+
+class TestEditProfileView(TestCase):
+    def setUp(self):
+        self.username = 'test'
+        self.password = 'testpassword'
+        self.email = 'test@gmail.com'
+        self.first_name = 'testfirstname'
+        self.last_name = 'testlastname'
+
+        self.user = get_user_model().objects.create_user(
+            username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
+        
+        self.profile = self.user.profile
+        self.client = Client()
+        self.client.force_login(user=self.user)
+
+    def test_edit_profile_works(self):
+        """Test edit profile url works for a website user"""
+        get_response = self.client.get(reverse('users:edit-profile', args=[self.profile.slug]))
+        self.assertEqual(get_response.status_code, 200)
+        self.assertTemplateUsed('users/profile-edit.html')
