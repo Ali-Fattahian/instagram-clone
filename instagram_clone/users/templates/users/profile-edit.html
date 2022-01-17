@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Edit Profile • Instagram
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/homepage.css' %}">
+<link rel="stylesheet" href="{% static 'users/profile-edit.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+    <header id="header">
+        <div class="nav-container">
+            <section class="navbar">
+                <a href="{% url 'core:homepage' %}">
+                    <div class="instagram-icon">
+                        <img src="{% static 'images/instagram-wordmark-small.png' %}" alt="Instagram" /></div>
+                </a>
+                <div class="search">
+                    <input type="search" name="searchquery" id="searchquery" placeholder="Search" />
+                </div>
+                <div class="icons">
+                    <a href="{% url 'core:homepage' %}"><i class="fas fa-home fa-lg"></i></a>
+                    <a href="#"><i class="far fa-comments fa-lg"></i></a>
+                    <a href="#"><i class="fas fa-plus fa-lg"></i></a><a href=""><i class="fas fa-search fa-lg"></i></a>
+                    <a href="#"><i class="far fa-heart fa-lg"></i></a>
+                    <a href="#"><i class="fas fa-user fa-lg"></i></a>
+                </div>
+            </section>
+        </div>
+    </header>
+    <main id="main">
+        <div class="container">
+            <form id="edit" method="post">
+                {% csrf_token %}
+                {{ form }}
+                {% comment %} <div class="profile-picture">
+                    <div class="image">
+                        <img src="#" alt="username">
+                    </div>
+                    <div class="change-picture-button">
+                        <h3>Username</h3>
+                        <a href="#">Change Profile Photo</a>
+                    </div>
+                </div>
+                <div class="full-name">
+                    <div class="first_name">
+                        <label for="first_name">First Name</label>
+                        <input type="text" name="first_name" id="first_name">
+                    </div>
+                    <div class="last_name">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" name="last_name" id="last_name">
+                    </div>
+                </div>
+                <div class="username">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div class="bio">
+                    <label for="bio">Bio</label>
+                    <textarea name="bio" id="bio"></textarea>
+                </div>
+                <div class="email">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div class="reset-password">
+                    <a href="#">Reset Your Password</a>
+                </div> {% endcomment %}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+{% endblock %}

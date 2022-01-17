@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login
+from .models import Profile
 from .forms import SignUpForm
 
 
@@ -37,3 +39,9 @@ class LogInView(View):
             return redirect('core:homepage')
         print('Invalid information')
         return render(request, 'users/login.html')
+
+
+class EditProfileView(UpdateView):
+    model = Profile
+    fields = ('image', 'first_name', 'last_name', 'username', 'bio', 'email')
+    template_name = 'users/profile-edit.html'
