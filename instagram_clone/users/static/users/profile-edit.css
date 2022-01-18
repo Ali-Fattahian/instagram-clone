@@ -19,9 +19,9 @@ ul {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  max-width: 696px;
+  max-width: 463px;
   border: 1px solid #dbdbdb;
-  padding: 2rem; }
+  padding: 3rem; }
   #edit a {
     color: #0095f6; }
   #edit div {
