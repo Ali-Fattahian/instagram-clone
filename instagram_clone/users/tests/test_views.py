@@ -56,13 +56,24 @@ class TestEditProfileView(TestCase):
 
         self.user = get_user_model().objects.create_user(
             username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
-        
+
         self.profile = self.user.profile
         self.client = Client()
         self.client.force_login(user=self.user)
 
     def test_edit_profile_works(self):
         """Test edit profile url works for a website user"""
-        get_response = self.client.get(reverse('users:edit-profile', args=[self.profile.slug]))
+        get_response = self.client.get(
+            reverse('users:edit-profile', args=[self.profile.slug]))
         self.assertEqual(get_response.status_code, 200)
         self.assertTemplateUsed('users/profile-edit.html')
+
+    def test_only_user_has_access(self):
+        """Test only the user has access to edit profile url specific to that user"""
+
+        test_client = Client()
+        get_response_not_auth = test_client.get(
+            reverse('users:edit-profile', args=[self.profile.slug]))
+        print(get_response_not_auth)
+
+        self.assertEqual(get_response_not_auth.status_code, 403)

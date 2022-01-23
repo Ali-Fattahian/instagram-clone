@@ -5,6 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login
 from .models import Profile
 from .forms import SignUpForm
+from core.utils import OnlySameUserCanEditMixin
 
 
 class SignUpView(View):
@@ -41,7 +42,7 @@ class LogInView(View):
         return render(request, 'users/login.html')
 
 
-class EditProfileView(UpdateView):
+class EditProfileView(OnlySameUserCanEditMixin, UpdateView):
     model = Profile
     fields = ('image', 'first_name', 'last_name', 'username', 'bio', 'email')
     template_name = 'users/profile-edit.html'
