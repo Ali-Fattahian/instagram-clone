@@ -27,6 +27,19 @@ class TestSignUpView(TestCase):
         created_user = get_user_model().objects.get(username=self.username)
         self.assertIsInstance(created_user, get_user_model())
 
+    def test_clean_email(self):
+        """Test an email including uppercase letters automatically saves into the database with lowercase letters"""
+        email = 'TEST@gmail.com'
+        self.test_client.post(reverse('users:sign-up'), data={
+            'username': self.username,
+            'email': email,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'password1': self.password,
+            'password2': self.password
+        })
+        created_user = get_user_model().objects.get(username=self.username)
+        self.assertEqual(created_user.email, 'test@gmail.com') #TEST --> test
 
 class TestLoginView(TestCase):
     def setUp(self):

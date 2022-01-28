@@ -27,3 +27,8 @@ class SignUpForm(UserCreationForm):
             {'placeholder': 'First Name'})
         self.fields['last_name'].widget.attrs.update(
             {'placeholder': 'Last Name'})
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        email = email.lower()
+        return email
