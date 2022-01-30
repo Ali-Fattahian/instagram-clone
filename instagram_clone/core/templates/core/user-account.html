@@ -68,6 +68,9 @@
                   <button type="submit" class="user-follow">Follow</button> 
                 </form>
                 {% endif %}
+                {% if request.user.profile == profile %}
+                <a class="btn" href="{% url 'users:edit-profile' profile.slug %}">Edit Profile</a>
+                {% endif %}
                 {% else %}
                 <a href="{% url 'users:log-in' %}" class="user-follow">Follow</a> <!--Guests should log in first before following someone-->
                 {% endif %}
