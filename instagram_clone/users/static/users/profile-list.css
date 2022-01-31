@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fafafa;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+input {
+  width: 256px;
+  height: 36px;
+  padding-left: 8px;
+  padding-top: 9px;
+  padding-bottom: 7px;
+  background-color: #fafafa;
+  border: 1px solid #e1e1e1;
+  border-radius: 3px;
+}
+input:focus {
+  outline: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.profiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  row-gap: 1rem;
+  column-gap: .8rem;
+}
+
+.profile {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  border: 1.5px solid #0095fe;
+  color: #000;
+  transition: all .3s ease-in-out;
+}
+
+.profile:hover,
+.profile:active {
+  transform: scale(1.1);
+  border: 1.5px solid #0095fe;
+}
+
+.profile .profile__picture {
+  margin-bottom: 1rem;
+}
+
+.profile .profile__picture img {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background-color: #000;
+  margin: auto;
+}
+
+.profile .profile__username {
+  margin-bottom: 1rem;
+}
+
+.profile .profile__username p {
+  font-weight: bold;
+}
+
+.profile .profile__bio p {
+  color: #8e8e8e;
+}
