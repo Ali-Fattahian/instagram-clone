@@ -12,18 +12,6 @@ a {
 ul {
   list-style: none; }
 
-input {
-  width: 256px;
-  height: 36px;
-  padding-left: 8px;
-  padding-top: 9px;
-  padding-bottom: 7px;
-  background-color: #fafafa;
-  border: 1px solid #e1e1e1;
-  border-radius: 3px; }
-  input:focus {
-    outline: 0; }
-
 .post {
   background-color: #fff;
   border: 1px solid #e1e1e1;

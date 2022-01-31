@@ -20,7 +20,16 @@ Edit Profile • Instagram
                         <img src="{% static 'images/instagram-wordmark-small.png' %}" alt="Instagram" /></div>
                 </a>
                 <div class="search">
-                    <input type="search" name="searchquery" id="searchquery" placeholder="Search" />
+                    <form action="{% url 'users:search-results' %}" method="post">
+                        {% csrf_token %}
+                        <input
+                        type="search"
+                        name="search_query"
+                        id="search_query"
+                        placeholder="Search"
+                        />
+                        <button type="submit">Search</button>
+                    </form>
                 </div>
                 <div class="icons">
                     <a href="{% url 'core:homepage' %}"><i class="fas fa-home fa-lg"></i></a>

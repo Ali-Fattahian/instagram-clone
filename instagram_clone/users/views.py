@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.views.generic import View
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy, reverse
@@ -46,3 +47,12 @@ class EditProfileView(OnlySameUserCanEditMixin, UpdateView):
     model = Profile
     fields = ('image', 'first_name', 'last_name', 'username', 'bio', 'email')
     template_name = 'users/profile-edit.html'
+
+
+def profile_list(request):
+    search_query = ''
+    if request.GET.get('search_query'):
+        search_query = request.GET.get('search_query')
+    profiles = Profile.objects.filter(Q(username__icontains=search_query) | Q(
+        first_name__icontains=search_query) | Q(last_name__icontains=search_query))
+    return render(request, 'users/profile-list.html', {'profiles': profiles})
