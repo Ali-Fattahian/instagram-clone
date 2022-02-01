@@ -157,11 +157,14 @@ input {
           align-items: center;
           justify-content: space-between;
           width: 100%; }
-          #main .main__content-container .main__content .suggestions .user-account .user-profile__picture div {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
+          #main .main__content-container .main__content .suggestions .user-account .user-profile__picture {
+            width: 40px;
+            height: 40px;
             background-color: #000; }
+          #main .main__content-container .main__content .suggestions .user-account .user-profile__picture img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%; }
           #main .main__content-container .main__content .suggestions .user-account .user-info {
             display: flex;
             justify-content: center;
@@ -204,8 +207,12 @@ input {
 .suggested-users__profile-picture {
   height: 2rem;
   width: 2rem;
-  border-radius: 50%;
   background-color: #000; }
+
+.suggested-users__profile-picture img {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%; }
 
 .tags {
   display: flex;

@@ -132,7 +132,7 @@
             {% if request.user.is_authenticated %}
             <div class="user-account">
               <div class="user-profile__picture">
-                <div class="img"></div>
+                <img src="{{ request.user.profile.image.url }}" alt="{{ request.user.profile.username }}">
               </div>
               <div class="user-info">
                 <a href="{% url 'core:user-account' request.user.profile.slug %}">{{ request.user.profile.username }}</a>
@@ -148,7 +148,9 @@
               {% if request.user.is_authenticated %}
                 {% for suggested_user in suggested_users %}
                 <div class="suggested-users">
-                  <div class="suggested-users__profile-picture"></div>
+                  <div class="suggested-users__profile-picture">
+                    <img src="{{ suggested_user.image.url }}" alt="{{ suggested_user.image.url }}">
+                  </div>
                   <div class="suggested-users__info">{{ suggested_user.username }}</div>
                   <form method="post">
                     <input type="hidden" name="suggested_user_id" value="{{ suggested_user.pk }}">
@@ -173,7 +175,7 @@
               </div>
             </div>
             <div class="copy-rights">
-              <small>&copy; 2021 INSTAGRAM FROM META</small>
+              <small>&copy; 2022 INSTAGRAM FROM META</small>
             </div>
           </div>
         </div>
