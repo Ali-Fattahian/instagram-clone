@@ -12,6 +12,7 @@ db.sqlite3
 db.sqlite3-journal
 media
 .DS_Store
+instagram_clone/.vscode/*
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -152,7 +153,6 @@ dmypy.json
 cython_debug/
 
 ### VisualStudioCode ###
-.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
