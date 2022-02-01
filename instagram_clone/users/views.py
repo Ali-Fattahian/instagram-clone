@@ -49,10 +49,15 @@ class EditProfileView(OnlySameUserCanEditMixin, UpdateView):
     template_name = 'users/profile-edit.html'
 
 
-def profile_list(request):
-    search_query = ''
-    if request.GET.get('search_query'):
-        search_query = request.GET.get('search_query')
-    profiles = Profile.objects.filter(Q(username__icontains=search_query) | Q(
-        first_name__icontains=search_query) | Q(last_name__icontains=search_query))
-    return render(request, 'users/profile-list.html', {'profiles': profiles})
+class ProfileListView(View):
+    def get(self, request):
+        return render(request, 'users/profile-list.html', {'profiles': Profile.objects.all().order_by('-date_joined')})
+
+    def post(self, request):
+        if request.POST.get('search_query'):
+            search_query = request.POST.get('search_query')
+            profiles = Profile.objects.filter(Q(username__icontains=search_query) | Q(
+                first_name__icontains=search_query) | Q(last_name__icontains=search_query))
+        else:
+            profiles = Profile.objects.all().order_by('-date_joined')
+        return render(request, 'users/profile-list.html', {'profiles': profiles})
