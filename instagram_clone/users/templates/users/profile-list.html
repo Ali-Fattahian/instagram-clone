@@ -44,61 +44,19 @@
     <main id="main">
         <div class="container">
             <section class="profiles">
-                <a href="#" class="profile">
+                {% for profile in profiles %}
+                <a href="{% url 'core:user-account' profile.slug %}" class="profile">
                     <div class="profile__picture">
-                        <img src="#" alt="#">
+                        <img src="{{ profile.image.url }}" alt="{{ profile.username }}">
                     </div>
                     <div class="profile__username">
-                        <p>Lorem ipsum dolor sit amet.</p>
+                        <p>{{ profile.username }}</p>
                     </div>
                     <div class="profile__bio">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aspernatur sapiente impedit voluptas, adipisci vel dolor libero et. Sed, tempore?</p>
+                        <p>{{ profile.bio }}</p>
                     </div>
                 </a>
-                <a href="#" class="profile">
-                    <div class="profile__picture">
-                        <img src="#" alt="#">
-                    </div>
-                    <div class="profile__username">
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div class="profile__bio">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aspernatur sapiente impedit voluptas, adipisci vel dolor libero et. Sed, tempore?</p>
-                    </div>
-                </a>
-                <a href="#" class="profile">
-                    <div class="profile__picture">
-                        <img src="#" alt="#">
-                    </div>
-                    <div class="profile__username">
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div class="profile__bio">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aspernatur sapiente impedit voluptas, adipisci vel dolor libero et. Sed, tempore?</p>
-                    </div>
-                </a>
-                <a href="#" class="profile">
-                    <div class="profile__picture">
-                        <img src="#" alt="#">
-                    </div>
-                    <div class="profile__username">
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div class="profile__bio">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aspernatur sapiente impedit voluptas, adipisci vel dolor libero et. Sed, tempore?</p>
-                    </div>
-                </a>
-                <a href="#" class="profile">
-                    <div class="profile__picture">
-                        <img src="#" alt="#">
-                    </div>
-                    <div class="profile__username">
-                        <p>Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div class="profile__bio">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem aspernatur sapiente impedit voluptas, adipisci vel dolor libero et. Sed, tempore?</p>
-                    </div>
-                </a>
+                {% endfor %}
             </section>
         </div>
     </main>
