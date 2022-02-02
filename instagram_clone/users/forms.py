@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from .models import Profile
 
 
 class SignUpForm(UserCreationForm):
@@ -27,6 +28,18 @@ class SignUpForm(UserCreationForm):
             {'placeholder': 'First Name'})
         self.fields['last_name'].widget.attrs.update(
             {'placeholder': 'Last Name'})
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        email = email.lower()
+        return email
+
+
+class ProfileModelForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image', 'first_name',
+                  'last_name', 'username', 'bio', 'email']
 
     def clean_email(self):
         email = self.cleaned_data['email']

@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
 from django.views.generic import View
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login
 from .models import Profile
-from .forms import SignUpForm
+from .forms import SignUpForm, ProfileModelForm
 from core.utils import OnlySameUserCanEditMixin
 
 
@@ -44,10 +44,12 @@ class LogInView(View):
 
 
 class EditProfileView(OnlySameUserCanEditMixin, UpdateView):
-    model = Profile
-    fields = ('image', 'first_name', 'last_name', 'username', 'bio', 'email')
     template_name = 'users/profile-edit.html'
+    form_class = ProfileModelForm
+    queryset = Profile.objects.all()
 
+    def get_object(self):
+        return get_object_or_404(Profile, slug=self.kwargs.get('slug'))
 
 class ProfileListView(View):
     def get(self, request):
