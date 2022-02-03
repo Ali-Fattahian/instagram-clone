@@ -54,7 +54,10 @@ Edit Profile • Instagram
                 <div class="reset-password">
                     <a href="#">Reset Your Password</a>
                 </div>
-                <button type="submit">Submit</button>
+                <div class="btns">
+                    <a class="cancel" href="{% url 'core:user-account' request.user.profile.slug %}">Cancel</a>
+                    <button type="submit">Submit</button>
+                </div>
             </form>
         </div>
     </main>

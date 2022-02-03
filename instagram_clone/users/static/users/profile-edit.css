@@ -52,6 +52,18 @@ ul {
     padding: 5px 9px; }
     #edit button:hover, #edit button:active {
       cursor: pointer; }
+
+  #edit .cancel {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    border: 1px solid #ff4567;
+    background-color: #ff4567;
+    color: #fff;
+    border-radius: 4px;
+    padding: 3.5px 7.5px; }
+    #edit .cancel:hover, #edit .cancel:active {
+      cursor: pointer; }
   #edit .profile-picture {
     display: flex;
     justify-content: center;

@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
 from django.views.generic import View
 from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login
 from .models import Profile
@@ -45,7 +46,7 @@ class LogInView(View):
         return render(request, 'users/login.html')
 
 
-class EditProfileView(OnlySameUserCanEditMixin, UpdateView):
+class EditProfileView(OnlySameUserCanEditMixin, LoginRequiredMixin, UpdateView):
     template_name = 'users/profile-edit.html'
     form_class = ProfileModelForm
     queryset = Profile.objects.all()
