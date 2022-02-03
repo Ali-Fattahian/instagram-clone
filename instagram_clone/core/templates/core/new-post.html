@@ -16,7 +16,7 @@
         <section id="main-top">
           <div class="main-top__links-container">
             <div class="top-link__left">
-              <a href="#"><i class="fa fa-arrow-left"></i></a>
+              <a href="{% url '{{ request.Meta.get('HTTP_REFERER')}}' %}"><i class="fa fa-arrow-left"></i></a>
             </div>
             <div class="top-link__middle"><h4>Create new post</h4></div>
             <div class="top-link__right">
@@ -34,8 +34,8 @@
           <section id="post-form-right">
             <div class="add-caption">
                 <div class="user-profile">
-                    <div class="profile-picture"></div>
-                    <div class="profile-username"><a href="#">joe_photographer</a></div>
+                    <img src="{{ request.user.profile.image.url }}" alt="{{ request.user.username }} profile picture" class="profile-picture">
+                    <div class="profile-username"><a href="{% url 'core:user-account' request.user.profile.slug %}">{{ request.user.username }}</a></div>
                 </div>
               <input
                 type="text"

@@ -38,6 +38,8 @@ class LogInView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
             return redirect('core:homepage')
         print('Invalid information')
         return render(request, 'users/login.html')

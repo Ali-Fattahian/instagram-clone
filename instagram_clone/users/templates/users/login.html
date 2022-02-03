@@ -15,6 +15,9 @@ Instagram
         <section id="register">
           <form method="post" class="form">
             {% csrf_token %}
+            {% if request.GET.next %}
+              <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% endif %}
             <div class="instagram-icon">
               <img
                 src="{% static 'images/Instagram-wordmark-01.png' %}"

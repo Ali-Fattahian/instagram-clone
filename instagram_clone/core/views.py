@@ -169,6 +169,7 @@ class PostDetailView(View):
 
 class AddPostView(LoginRequiredMixin, View):
     login_url = 'users:log-in'
+    redirect_field_name = 'next' # this next functionality working for this view because of this
 
     def get(self, request):
         return render(request, 'core/new-post.html')
