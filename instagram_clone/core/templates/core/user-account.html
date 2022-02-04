@@ -27,7 +27,6 @@
               id="search_query"
               placeholder="Search"
               />
-              <button type="submit">Search</button>
             </form>
           </div>
           <div class="icons">
@@ -41,9 +40,9 @@
         </section>
       </div>
       <div class="modal-search hidden">
-        <form action="#" method="post">
+        <form action="{% url 'users:search-results' %}" method="post">
           {% csrf_token %}
-          <input type="search" name="search" id="search" placeholder="Search">
+          <input type="search" name="search_query" id="search_query2" placeholder="Search">
         </form>
       </div>
       <div class="overlay hidden"></div>
