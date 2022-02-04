@@ -34,12 +34,19 @@
             <a href="#"><i class="fas fa-home fa-lg"></i></a>
             <a href="#"><i class="far fa-comments fa-lg"></i></a>
             <a href="#"><i class="fas fa-plus fa-lg"></i></a
-            ><a href=""><i class="fas fa-search fa-lg"></i></a>
+            ><button href=""><i class="fas fa-search fa-lg"></i></button>
             <a href="#"><i class="far fa-heart fa-lg"></i></a>
             <a href="#"><i class="fas fa-user fa-lg"></i></a>
           </div>
         </section>
       </div>
+      <div class="modal-search hidden">
+        <form action="#" method="post">
+          {% csrf_token %}
+          <input type="search" name="search" id="search" placeholder="Search">
+        </form>
+      </div>
+      <div class="overlay hidden"></div>
     </header>
     <main id="main">
         <div class="container">
@@ -60,4 +67,5 @@
             </section>
         </div>
     </main>
+    <script src="{% static 'js/app.js' %}"></script>
 {% endblock %}
