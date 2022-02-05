@@ -58,7 +58,7 @@ Edit Profile • Instagram
                     </div>
                 {% endfor %}
                 <div class="reset-password">
-                    <a href="#">Reset Your Password</a>
+                    <a href="{% url 'reset_password' %}">Reset Your Password</a>
                 </div>
                 <div class="btns">
                     <a class="cancel" href="{% url 'core:user-account' request.user.profile.slug %}">Cancel</a>

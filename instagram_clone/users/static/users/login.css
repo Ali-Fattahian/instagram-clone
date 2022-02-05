@@ -71,6 +71,7 @@ input {
           align-items: center;
           flex-direction: column; }
           #main .content-container #register form .links .forgot-password {
+            color: #0095f6;
             margin-top: 1.5rem; }
     #main .content-container #images {
       order: 1; }
