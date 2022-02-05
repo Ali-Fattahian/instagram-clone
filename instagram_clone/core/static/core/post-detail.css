@@ -70,6 +70,9 @@ ul {
   .post .post-details .under-picture .post__interaction #post-like button {
   background-color: transparent;
   border: none; }
+  .post .post-details .under-picture .post__interaction #post-like button:active,
+  .post .post-details .under-picture .post__interaction #post-like button:hover {
+    cursor: pointer; }
 
 .post__likes {
   font-weight: bold;

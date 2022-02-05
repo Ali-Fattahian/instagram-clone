@@ -157,6 +157,9 @@ input {
           #main .main__content-container .main__content .posts .post__interaction #post-like button {
             background-color: transparent;
             border: none;}  
+          #main .main__content-container .main__content .posts .post__interaction #post-like button:hover,
+          #main .main__content-container .main__content .posts .post__interaction #post-like button:active {
+            cursor: pointer; }
         #main .main__content-container .main__content .posts .post__likes {
           font-weight: bold;
           padding-left: 14px;
@@ -195,12 +198,13 @@ input {
           justify-content: space-between;
           width: 100%; }
           #main .main__content-container .main__content .suggestions .user-account .user-profile__picture {
-            width: 40px;
+            width: 58px;
             height: 40px;
             background-color: #000; }
           #main .main__content-container .main__content .suggestions .user-account .user-profile__picture img {
             width: 100%;
             height: 100%;
+            object-fit: cover;
             border-radius: 50%; }
           #main .main__content-container .main__content .suggestions .user-account .user-info {
             display: flex;
@@ -234,9 +238,15 @@ input {
     color: #0095f6;
     border: none;
     background-color: transparent; }
+  .suggested-users button:hover,
+  .suggested-users button:active {
+    cursor: pointer; }
   .suggested-users a {
-    color: #0095f6;
+    color: #000;
     font-size: 14px; }
+  .suggested-users a:hover,
+  .suggested-users a:active {
+    text-decoration: underline; }
 
 .suggested-login {
   color: #0095f6; }

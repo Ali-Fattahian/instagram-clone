@@ -126,11 +126,13 @@ class PostDetailView(View):
         post = get_object_or_404(Post, pk=pk)
         if request.user.is_authenticated:
             is_post_like = LikePost.objects.filter(profile=request.user.profile, post = post)
+        else:
+            is_post_like = None
         context = {
             'post':post,
             'comment_form':CommentForm(),
             'like_post_form':LikePostForm(),
-            'is_post_like':is_post_like or None
+            'is_post_like':is_post_like 
         }
         return render(request, 'core/post-detail.html', context)
 

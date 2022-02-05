@@ -50,7 +50,7 @@ Instagram
           <div class="sign-up">
             <p>Don't have an account? <a href="{% url 'users:sign-up' %}">Sign up</a></p>
           </div>
-          <div class="sign-up"><a href="#">Enter as a guest</a></div>
+          <div class="sign-up"><a href="{% url 'core:homepage' %}">Enter as a guest</a></div>
         </section>
         <section id="images">
           <img src="{% static 'images/instagram.jpg' %}" alt="Instagram" />

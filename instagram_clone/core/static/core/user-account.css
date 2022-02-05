@@ -48,6 +48,13 @@
               border: #dbdbdb 1px solid;
               font-weight: bold;
               padding: 5px 9px; }
+              #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction .user-unfollow {
+                padding: .3rem;
+                background-color: #fff;
+                border: 1px solid #dbdbdb; }
+              #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction .user-unfollow:hover,
+              #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction .user-unfollow:active {
+                cursor: pointer; }
               #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction .user-follow {
                 border: #0095f6 1px solid;
                 padding: 5px 14px;
