@@ -71,7 +71,7 @@ input {
           align-items: center;
           flex-direction: column; }
           #main .content-container #register form .links .forgot-password {
-            color: #0095f6;
+            color: #00376b; 
             margin-top: 1.5rem; }
     #main .content-container #images {
       order: 1; }
@@ -83,10 +83,7 @@ input {
   margin: auto; }
   .instagram-icon img {
     width: 175px; }
-
-.forgot-password {
-  color: #00376b; }
-
+    
 .sign-up {
   background-color: #fff;
   padding: 1rem 3.75rem;

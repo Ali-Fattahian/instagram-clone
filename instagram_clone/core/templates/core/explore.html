@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Explore
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'core/homepage.css' %}">
+  <link rel="stylesheet" href="{% static 'core/explore.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include 'core/includes/header.html' %}
+    <main id="main">
+      <div class="container">
+        {% for post in posts %}
+        <a href="{% url 'core:post' slug=post.profile.slug pk=post.pk %}" class="post">
+          <img src="{{ post.image.url }}" alt="{{ post.profile.username }} post">
+        </a>
+        {% endfor %}
+      </div>
+    </main>
+    <script src="{% static 'js/app.js' %}"></script>
+{% endblock %}

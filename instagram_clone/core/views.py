@@ -190,5 +190,12 @@ class AddPostView(LoginRequiredMixin, View):
             print('invalid data')
             return render(request, 'core/new-post.html')
 
+
+def explore(request):
+    posts = Post.objects.all().order_by('-date_created')
+    context = {'posts':posts}
+    return render(request, 'core/explore.html', context)
+
+
 def coming_soon(request):
     return render(request, 'coming-soon.html')
