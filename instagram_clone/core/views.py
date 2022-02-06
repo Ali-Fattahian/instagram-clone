@@ -189,3 +189,6 @@ class AddPostView(LoginRequiredMixin, View):
         except ValidationError:
             print('invalid data')
             return render(request, 'core/new-post.html')
+
+def coming_soon(request):
+    return render(request, 'coming-soon.html')

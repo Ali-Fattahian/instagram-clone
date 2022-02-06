@@ -34,9 +34,9 @@
           </div>
           <div class="icons">
             <a href="{% url 'core:homepage' %}"><i class="fas fa-home fa-lg"></i></a>
-            <a href="#"><i class="far fa-comments fa-lg"></i></a>
+            <a href="{% url 'core:coming-soon' %}"><i class="far fa-comments fa-lg"></i></a>
             <a href="{% url 'core:add-post' %}"><i class="fas fa-plus fa-lg"></i></a
-            ><button href=""><i class="fas fa-search fa-lg"></i></button>
+            ><button><i class="fas fa-search fa-lg"></i></button>
             {% if request.user.is_authenticated %}
             <a href="{% url 'users:log-out' %}"><i class="fa fa-sign-out-alt fa-lg"></i></a>
             {% else %}

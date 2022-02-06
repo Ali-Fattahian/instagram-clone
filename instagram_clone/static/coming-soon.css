@@ -1,0 +1,36 @@
+#main {
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    color: #fff;
+    background: url('/static/images/coming-soon.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 80%;
+    max-width: 750px;
+}
+
+h1 {
+    font-size: 5vw;
+    padding: 2rem 1rem;
+    border: 1px #fff solid;
+}
+
+p {
+    font-size: 3vw;
+    margin-top: 1.5rem;
+}
+
+p a {
+    color: #fff;
+}
+
+@media screen and (max-width: 645px) {
+    p {
+        font-size: 5vw;
+    }
+}

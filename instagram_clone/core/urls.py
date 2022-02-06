@@ -9,4 +9,5 @@ urlpatterns = [
          views.UserProfileDetail.as_view(), name='user-account'),
     path('homepage/<slug:slug>/posts/<int:pk>/',
          views.PostDetailView.as_view(), name='post'),
+    path('chat/', views.coming_soon, name='coming-soon')
 ]
