@@ -4,7 +4,7 @@ from django.views.generic import View
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import Profile
 from .forms import SignUpForm, ProfileModelForm
 from core.utils import OnlySameUserCanEditMixin
@@ -34,8 +34,8 @@ class LogInView(View):
         return render(request, 'users/login.html')
 
     def post(self, request):
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -44,6 +44,12 @@ class LogInView(View):
             return redirect('core:homepage')
         print('Invalid information')
         return render(request, 'users/login.html')
+
+
+def log_out(request):
+    logout(request)
+    print('You\'ve been logged out successfully')
+    return redirect('users:log-in')
 
 
 class EditProfileView(OnlySameUserCanEditMixin, LoginRequiredMixin, UpdateView):
