@@ -12,45 +12,9 @@ Edit Profile • Instagram
 
 
 {% block content %}
-    <header id="header">
-        <div class="nav-container">
-            <section class="navbar">
-                <a href="{% url 'core:homepage' %}">
-                    <div class="instagram-icon">
-                        <img src="{% static 'images/instagram-wordmark-small.png' %}" alt="Instagram" /></div>
-                </a>
-                <div class="search">
-                    <form action="{% url 'users:search-results' %}" method="post">
-                        {% csrf_token %}
-                        <input
-                        type="search"
-                        name="search_query"
-                        id="search_query"
-                        placeholder="Search"
-                        />
-                    </form>
-                </div>
-                <div class="icons">
-                    <a href="{% url 'core:homepage' %}"><i class="fas fa-home fa-lg"></i></a>
-                    <a href="{% url 'core:coming-soon' %}"><i class="far fa-comments fa-lg"></i></a>
-                    <a href="#"><i class="fas fa-plus fa-lg"></i></a><button><i class="fas fa-search fa-lg"></i></button>
-                    {% if request.user.is_authenticated %}
-                    <a href="{% url 'users:log-out' %}"><i class="fa fa-sign-out-alt fa-lg"></i></a>
-                    {% else %}
-                    <a href="{% url 'users:log-in' %}"><i class="fa fa-sign-in-alt fa-lg"></i></a>
-                    {% endif %}
-                    <a href="#"><i class="fas fa-user fa-lg"></i></a>
-                </div>
-            </section>
-        </div>
-        <div class="modal-search hidden">
-            <form action="{% url 'users:search-results' %}" method="post">
-              {% csrf_token %}
-              <input type="search" name="search_query" id="search_query2" placeholder="Search">
-            </form>
-          </div>
-        <div class="overlay hidden"></div>
-    </header>
+
+    {% include 'core/includes/header.html' %}
+
     <main id="main">
         <div class="container">
             <form id="edit" method="post">
