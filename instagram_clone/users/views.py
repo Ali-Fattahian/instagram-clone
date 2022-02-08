@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Profile
 from .forms import SignUpForm, ProfileModelForm
 from core.utils import OnlySameUserCanEditMixin
+from verify_email.email_handler import send_verification_email
 
 
 class SignUpView(View):
@@ -20,7 +21,8 @@ class SignUpView(View):
         form = SignUpForm(request.POST)
         context = {'form': form}
         if form.is_valid():
-            form.save()
+            send_verification_email(request, form)
+            print('Please verify your email, if you don\'t see anything, check the spam folder.')
             return redirect('users:sign-up')
         print('Entered informations are not valid')
         return render(request, 'users/sign-up.html', context)
@@ -59,6 +61,7 @@ class EditProfileView(OnlySameUserCanEditMixin, LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return get_object_or_404(Profile, slug=self.kwargs.get('slug'))
+
 
 class ProfileListView(View):
     def get(self, request):

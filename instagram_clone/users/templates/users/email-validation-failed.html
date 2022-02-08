@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Verification failed 
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'core/homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+{% include 'core/includes/header.html' %}
+
+<main id="main"><h1 style="text-align: center;">{{ msg }}</h1></main>
+
+<script src="{% static 'js/app.js' %}"></script>
+
+{% endblock %}

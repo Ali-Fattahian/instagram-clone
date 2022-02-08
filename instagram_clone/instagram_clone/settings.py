@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
+    'verify_email.apps.VerifyEmailConfig',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'instagram.django.clone@gmail.com'
 EMAIL_HOST_PASSWORD = 'zrhkD7bVNx2F'
+
+VERIFICATION_SUCCESS_TEMPLATE = None
+VERIFICATION_FAILED_TEMPLATE = 'users/email-validation-failed.html'
