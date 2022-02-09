@@ -27,7 +27,7 @@
               <div class="user-interaction">
                 {% if request.user.is_authenticated %}
                 {% if request_user_is_follower %}
-                <a href="#" class="user-send-message">Message</a>
+                <a href="{% url 'core:coming-soon' %}" class="user-send-message">Message</a>
                 <form method="post" style="{% if request.user.profile == profile %} display:none;{% endif %}">
                   {% csrf_token %}
                   <input type="hidden" name="user-unfollow" value="True">
@@ -44,6 +44,7 @@
                 {% endif %}
                 {% if request.user.profile == profile %}
                 <a class="btn" href="{% url 'users:edit-profile' profile.slug %}">Edit Profile</a>
+                <a class="saved-posts" href="{% url 'core:saved-posts' %}"><i class="fa fa-bookmark-o fa-lg"></i></a>
                 {% endif %}
                 {% else %}
                 <a href="{% url 'users:log-in' %}" class="user-follow">Follow</a> <!--Guests should log in first before following someone-->
