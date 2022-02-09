@@ -170,6 +170,18 @@ class PostDetailView(TestCase):
         self.assertEqual(self.get_response.status_code, 200)
         self.assertTemplateUsed('core/post-detail.html')
 
+    def test_save_unsave_works(self):
+        """Test a user can save and unsave a post in PostDetail page"""
+        self.test_client.post(reverse('core:post', args=(self.test_profile.slug, self.test_post.pk)), data={
+            'post_save': True
+        })
+        self.assertTrue(SavePost.objects.filter(post=self.test_post, profile=self.test_profile))
+        
+        self.test_client.post(reverse('core:post', args=(self.test_profile.slug, self.test_post.pk)), data= {
+            'post_unsave': True
+        })
+        self.assertFalse(SavePost.objects.filter(post=self.test_post, profile=self.test_profile))
+
 
 class AddPostView(TestCase):
     def setUp(self):

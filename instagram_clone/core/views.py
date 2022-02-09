@@ -147,11 +147,17 @@ class PostDetailView(View):
             is_post_like = LikePost.objects.filter(profile=request.user.profile, post = post)
         else:
             is_post_like = None
+        saved_posts = []
+        save_objects = SavePost.objects.filter(profile = self.request.user.profile)
+        for save_object in save_objects:
+            saved_posts.append(save_object.post)
         context = {
             'post':post,
             'comment_form':CommentForm(),
             'like_post_form':LikePostForm(),
-            'is_post_like':is_post_like 
+            'save_post_form': SavePostForm(),
+            'is_post_like':is_post_like,
+            'saved_posts': saved_posts
         }
         return render(request, 'core/post-detail.html', context)
 
@@ -159,6 +165,7 @@ class PostDetailView(View):
         if request.user.is_authenticated:
             comment_form = CommentForm(request.POST)
             like_post_form = LikePostForm(request.POST)
+            save_post_form = SavePostForm(request.POST)
             post = get_object_or_404(Post, pk=pk)
             if comment_form.is_valid():
                 form = comment_form.save(commit=False)
@@ -167,6 +174,19 @@ class PostDetailView(View):
                 form.save()
                 print('comment added')
                 return HttpResponseRedirect(reverse('core:post', args=[slug, post.pk]))
+
+            elif ( 'post_unsave' in request.POST or 'post_save' in request.POST): # Again i had to change the order of checking for post_save/unsave request and like/unlike request.
+                if 'post_save' in request.POST:
+                    form = save_post_form.save(commit=False)
+                    form.profile = request.user.profile
+                    form.post = post
+                    form.save()
+                    return HttpResponseRedirect(reverse('core:post', args=[slug, post.pk]))
+                elif 'post_unsave' in request.POST:
+                    saved_object = SavePost.objects.get(profile=self.request.user.profile, post=post)
+                    saved_object.delete()
+                    return HttpResponseRedirect(reverse('core:post', args=[slug, post.pk]))
+
             elif like_post_form.is_valid:
                 is_post_like = LikePost.objects.filter(profile=request.user.profile, post = post)
                 if is_post_like:
