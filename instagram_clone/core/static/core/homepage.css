@@ -154,11 +154,14 @@ input {
             color: #000; }
           #main .main__content-container .main__content .posts .post__interaction #post-like {
             display: inline;} 
-          #main .main__content-container .main__content .posts .post__interaction #post-like button {
+          #main .main__content-container .main__content .posts .post__interaction #post-like button,
+          #main .main__content-container .main__content .posts .post__interaction #post-save button {
             background-color: transparent;
             border: none;}  
           #main .main__content-container .main__content .posts .post__interaction #post-like button:hover,
-          #main .main__content-container .main__content .posts .post__interaction #post-like button:active {
+          #main .main__content-container .main__content .posts .post__interaction #post-like button:active,
+          #main .main__content-container .main__content .posts .post__interaction #post-save button:hover,
+          #main .main__content-container .main__content .posts .post__interaction #post-save button:active {
             cursor: pointer; }
         #main .main__content-container .main__content .posts .post__likes {
           font-weight: bold;
