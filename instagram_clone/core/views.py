@@ -5,9 +5,9 @@ from django.core.exceptions import ValidationError
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
-from .models import Post, LikePost
+from .models import Post, LikePost, SavePost
 from users.models import Follow, Profile
-from .forms import CommentForm, LikePostForm
+from .forms import CommentForm, LikePostForm, SavePostForm
 
 
 class HomePageView(View):
@@ -27,8 +27,12 @@ class HomePageView(View):
                 if like_object.post in posts:
                     user_liked_posts.append(like_object.post)
 
+            saved_posts = []
+            for save_object in SavePost.objects.filter(profile=user_profile): # all the posts that user saved 
+                # if save_object.post in posts:                     # if that post exist in posts that are shown to the user
+                saved_posts.append(save_object.post) # add it to saved_posts list
             context = {'posts': posts.order_by(
-                '-date_created'), 'comment_form': CommentForm(), 'like_post_form': LikePostForm(), 'post_likes':user_liked_posts, 'suggested_users':newest_users}
+                '-date_created'), 'comment_form': CommentForm(), 'like_post_form': LikePostForm(), 'save_post_form': SavePostForm, 'post_likes':user_liked_posts, 'suggested_users':newest_users, 'saved_posts':saved_posts}
 
             return render(request, 'core/homepage.html', context)
         posts = Post.objects.annotate(likes=Count('post_like')).order_by('-likes') #Show posts for non-auth users based on 'number of likes' or 'number of related LikePost objects to each post' order 
@@ -39,6 +43,7 @@ class HomePageView(View):
         if request.user.is_authenticated:
             comment_form = CommentForm(request.POST)
             like_post_form = LikePostForm(request.POST)
+            save_post_form = SavePostForm(request.POST)
             if comment_form.is_valid():
                 form = comment_form.save(commit=False)
                 post_id = request.POST['post_id']
@@ -46,6 +51,19 @@ class HomePageView(View):
                 form.profile = request.user.profile
                 form.save()
                 print('comment added')
+                return redirect('core:homepage')
+            elif ( 'post_unsave_id' in request.POST or 'post_save_id' in request.POST): # if i use form validation here(before like_post_form validation) it won't work. Always the middle one doens't work normally.
+                if request.POST.get('post_save_id'):
+                    form = save_post_form.save(commit=False)
+                    post_id = request.POST.get('post_save_id')
+                    form.profile = request.user.profile
+                    form.post = Post.objects.get(id=post_id)
+                    form.save()
+                elif request.POST.get('post_unsave_id'):
+                    post_id = request.POST['post_unsave_id']
+                    post = get_object_or_404(Post, pk=post_id)
+                    save_object = SavePost.objects.get(post = post, profile = request.user.profile)
+                    save_object.delete()
                 return redirect('core:homepage')
             elif like_post_form.is_valid:
                 if request.POST.get('like_post_id'):

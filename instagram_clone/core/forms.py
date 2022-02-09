@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, LikePost
+from .models import Comment, LikePost, SavePost
 
 
 class CommentForm(forms.ModelForm):
@@ -7,9 +7,8 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('content',)
         widgets = {
-            'content':forms.Textarea(attrs={'rows':0, 'cols':0})
+            'content': forms.Textarea(attrs={'rows': 0, 'cols': 0})
         }
-
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -20,4 +19,10 @@ class CommentForm(forms.ModelForm):
 class LikePostForm(forms.ModelForm):
     class Meta:
         model = LikePost
+        fields = tuple()
+
+
+class SavePostForm(forms.ModelForm):
+    class Meta:
+        model = SavePost
         fields = tuple()

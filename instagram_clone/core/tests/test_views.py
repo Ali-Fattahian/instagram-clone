@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 from django.core.files import File
 from django.conf import settings
 from core.forms import CommentForm
-from core.models import Post, Comment, LikePost
+from core.models import Post, Comment, LikePost, SavePost
 from users.models import Follow
 
 
@@ -93,6 +93,18 @@ class TestHomePageView(TestCase):
 
         self.assertTrue(LikePost.objects.filter(
             profile=self.test_profile2, post=self.test_post2).exists())
+
+    def test_post_save_unsave(self):
+        """Test a user can save and unsave a post in homepage"""
+        self.test_client.post(reverse('core:homepage'), data={
+            'post_save_id': self.test_post2.id
+        })
+        self.assertTrue(SavePost.objects.filter(profile=self.test_profile2, post=self.test_post2).exists())
+
+        self.test_client.post(reverse('core:homepage'), data={
+            'post_unsave_id': self.test_post2.id
+        })
+        self.assertFalse(SavePost.objects.filter(profile=self.test_profile2, post=self.test_post2).exists())
 
 
 class TestProfileDetail(TestCase):
