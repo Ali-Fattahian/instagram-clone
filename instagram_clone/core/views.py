@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.views.generic import View
+from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from .models import Post, LikePost, SavePost
@@ -217,3 +218,12 @@ def explore(request):
 
 def coming_soon(request):
     return render(request, 'coming-soon.html')
+
+
+class SavedPostsView(LoginRequiredMixin, ListView):
+    template_name = 'core/saved-posts.html'
+    context_object_name = 'saved_posts'
+
+    def get_queryset(self):
+        return SavePost.objects.filter(profile=self.request.user.profile)
+    
