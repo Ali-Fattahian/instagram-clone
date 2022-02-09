@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ request.user.profile.first_name|title }} {{ request.user.profile.last_name|title }}(@{{ request.user.username }})
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'core/homepage.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/saved-posts.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+    {% include 'core/includes/header.html' %}
+
+    <main id="main">
+        <div class="container">
+            <div class="saved_posts">
+                {% for saved_post in saved_posts %}
+                <a href="{% url 'core:post' slug=saved_post.post.profile.slug pk=saved_post.post.pk %}" class="saved_post">
+                    <img src="{{ saved_post.post.image.url }}" alt="{{ saved_post.post.profile.username }} post">
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+    <footer id="footer">
+      <div class="container">
+        <div class="tags">
+            <div class="tags-first-row">
+                <a href="#">About</a><a href="#">Help</a><a href="#">Press</a><a href="#">API</a>
+                <a href="#">Jobs</a>
+                <a href="#">Privacy</a><a href="#">Terms</a>
+            </div>
+            <div class="tags-second-row">
+                <a href="#">Locations</a><a href="#">Top Accounts</a><a href="#">Hashtags</a><a href="#">Language</a>
+            </div>
+        </div>
+        <div class="copy-rights">
+            <small>&copy; 2022 INSTAGRAM FROM META</small>
+        </div>
+      </div> 
+    </footer>
+
+    <script src="{% static 'js/app.js' %}"></script>
+{% endblock %}

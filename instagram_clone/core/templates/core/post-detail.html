@@ -70,7 +70,17 @@
               </form>
             </div>
             <div class="post__interaction-right">
-              <a href="#"><i class="far fa-save fa-lg"></i></a>
+              <form id="post-save" method="post">
+                {% csrf_token %}
+                {{ save_post_form }}
+                {% if post in saved_posts %}
+                <input type="hidden" name="post_unsave" value="True">
+                <button type="submit"><i class="fas fa-save fa-lg"></i></button>
+                {% else %}
+                <input type="hidden" name="post_save" value="True">
+                <button type="submit"><i class="far fa-save fa-lg"></i></button>
+                {% endif %}
+              </form>
             </div>
           </div>
           <div class="post__likes">{{ post.post_like.count }} likes</div>

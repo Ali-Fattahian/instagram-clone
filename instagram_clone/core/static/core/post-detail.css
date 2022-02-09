@@ -67,11 +67,14 @@ ul {
 
   .post .post-details .under-picture .post__interaction #post-like {
     display: inline; } 
-  .post .post-details .under-picture .post__interaction #post-like button {
+  .post .post-details .under-picture .post__interaction #post-like button,
+  .post .post-details .under-picture .post__interaction #post-save button {
   background-color: transparent;
   border: none; }
   .post .post-details .under-picture .post__interaction #post-like button:active,
-  .post .post-details .under-picture .post__interaction #post-like button:hover {
+  .post .post-details .under-picture .post__interaction #post-like button:hover,
+  .post .post-details .under-picture .post__interaction #post-save button:active,
+  .post .post-details .under-picture .post__interaction #post-save button:hover {
     cursor: pointer; }
 
 .post__likes {

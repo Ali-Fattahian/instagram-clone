@@ -61,3 +61,19 @@ class LikeComment(models.Model):
 
     def __str__(self):
         return f'profile {self.profile.username} liked comment id {self.comment.id} by {self.comment.profile.username}'
+
+
+class SavePost(models.Model):
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='saved_posts')
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='saved_posts')
+
+    def __str__(self):
+        return f'Profile {self.profile.username} saved post id {self.post.id} by {self.post.profile.username}'
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['profile', 'post'], name='You can\'t save the same post more than once'),
+        ]
