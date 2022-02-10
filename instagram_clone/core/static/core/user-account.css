@@ -67,7 +67,11 @@
                 padding: 5px 14px;
                 border-radius: 3px;
                 color: #fff;
+                transition: all .4s ease-in-out;
                 background-color: #0095f6; }
+                #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction .user-follow:hover,
+                #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction .user-follow:active {
+                  opacity: .9; }
         #user-main .user-container .user-information .user-profile__details .user-follow-post-count {
           display: flex;
           justify-content: center;
