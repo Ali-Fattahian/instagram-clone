@@ -236,7 +236,7 @@ input {
   margin-bottom: .5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between; }
+  justify-content: flex-start; }
   .suggested-users button {
     color: #0095f6;
     border: none;
@@ -257,6 +257,7 @@ input {
 .suggested-users__profile-picture {
   height: 2rem;
   width: 2rem;
+  margin-right: 3rem;
   background-color: #000; }
 
 .suggested-users__profile-picture img {

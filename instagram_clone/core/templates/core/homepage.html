@@ -135,10 +135,10 @@
                     <img src="{{ suggested_user.image.url }}" alt="{{ suggested_user.image.url }}">
                   </div>
                   <a href="{% url 'core:user-account' suggested_user.slug %}" class="suggested-users__info">{{ suggested_user.username }}</a>
-                  <form method="post">
+                  {% comment %} <form method="post">
                     <input type="hidden" name="suggested_user_id" value="{{ suggested_user.pk }}">
                     <button type="submit">Follow</button>
-                  </form>
+                  </form> {% endcomment %}
                 </div>
                 {% endif %}
                 {% endfor %}
