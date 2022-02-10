@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.db.models import Q
+from django.contrib.auth import get_user_model
 from django.views.generic import View
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -75,3 +76,15 @@ class ProfileListView(View):
         else:
             profiles = Profile.objects.all().order_by('-date_joined')
         return render(request, 'users/profile-list.html', {'profiles': profiles})
+
+
+class ProfileDeleteConfirmationView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'users/profile-delete-confirmation.html')
+
+    def post(self, request):
+        user = get_object_or_404(get_user_model(), pk=request.user.pk)
+        user.is_active = False
+        user.save()
+        print('Your account has been deleted, You can recover your account by sending a request with your account information to our email address.')
+        return redirect('core:homepage')

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Account delete confirmation
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'core/homepage.css' %}">
+    <style>
+        #main .container {
+            width: 100%;
+            max-width: 975px;
+            margin: auto;
+        }
+
+        #main .container .are-you-sure {
+            border: 1px solid #dbdbdb;
+            margin: auto;
+            width: 100%;
+            max-width: 750px;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        #main .container .are-you-sure p {
+            font-size: 4vw;
+            color: #262626;
+        }
+
+        #main .container .are-you-sure .yes-no {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 1.5rem;
+        }
+
+        #main .container .are-you-sure .yes-no .btn {
+            -webkit-appearance: button;
+            -moz-appearance: button;
+            appearance: button;
+            border: 1px solid #498ab4;
+            border-radius: 4px;
+            background-color: #fff;
+            transition: .4s background ease-in-out;
+            color: #5b5757;
+            border-radius: 4px;
+            padding: 3.5px 2vw; }
+
+        #main .container .are-you-sure .yes-no .btn:hover,
+        #main .container .are-you-sure .yes-no .btn:active {
+            background-color: #498ab4;
+            color: #fff;
+            cursor: pointer; }
+
+        #main .container .are-you-sure .yes-no #form {
+            display: inline;
+        }
+
+        #main .container .are-you-sure .yes-no #form button {
+            margin-top: .5rem;
+            color: #fff;
+            border: 1px solid #ff4567;
+            background-color: #ff4567;
+            display: block;
+            text-align: center; }
+        #main .container .are-you-sure .yes-no #form button:hover,
+        #main .container .are-you-sure .yes-no #form button:active {
+            background-color: #b21733;
+            border-color: #b21733; 
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+{% include 'core/includes/header.html' %}
+    <div id="main">
+        <div class="container">
+            <div class="are-you-sure">
+                <p>If you click on yes, YOUR account will be deleted, Are you sure?</p> {% comment %} The trick in "YOUR" word is no matter whos account this is, the user will delete his/her account(login is required to access this page).{% endcomment %} 
+                <div class="yes-no">
+                    <a class="btn" href="{% url 'users:edit-profile' request.user.profile.slug %}">No</a>
+                    <form id="form" method="post">
+                        {% csrf_token %}
+                        <button class="btn"type="submit">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+{% endblock %}

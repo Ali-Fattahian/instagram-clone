@@ -143,14 +143,14 @@ class UserProfileDetail(View):
 class PostDetailView(View):
     def get(self, request, slug, pk):
         post = get_object_or_404(Post, pk=pk)
+        saved_posts = []
         if request.user.is_authenticated:
+            save_objects = SavePost.objects.filter(profile = self.request.user.profile)
+            for save_object in save_objects:
+                saved_posts.append(save_object.post)
             is_post_like = LikePost.objects.filter(profile=request.user.profile, post = post)
         else:
             is_post_like = None
-        saved_posts = []
-        save_objects = SavePost.objects.filter(profile = self.request.user.profile)
-        for save_object in save_objects:
-            saved_posts.append(save_object.post)
         context = {
             'post':post,
             'comment_form':CommentForm(),
