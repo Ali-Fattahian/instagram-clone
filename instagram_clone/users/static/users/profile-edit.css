@@ -49,21 +49,40 @@ ul {
     background-color: #0095f6;
     color: #fff;
     border-radius: 4px;
+    transition: .4s background ease-in-out;
+    margin-top: .1rem;
     padding: 5px 9px; }
     #edit button:hover, #edit button:active {
+      opacity: .9;
       cursor: pointer; }
 
   #edit .cancel {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
-    border: 1px solid #ff4567;
-    background-color: #ff4567;
-    color: #fff;
+    border: 1px solid #498ab4;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: .4s background ease-in-out;
+    color: #5b5757;
     border-radius: 4px;
     padding: 3.5px 7.5px; }
     #edit .cancel:hover, #edit .cancel:active {
+      background-color: #498ab4;
+      color: #fff;
       cursor: pointer; }
+  #edit .delete-account {
+    margin-top: .5rem;
+    color: #fff;
+    border: 1px solid #ff4567;
+    background-color: #ff4567;
+    display: block;
+    text-align: center;
+  }
+  #edit .delete-account:hover,
+  #edit .delete-account:active {
+    background-color: #b21733;
+    border-color: #b21733; }
   #edit .profile-picture {
     display: flex;
     justify-content: center;
