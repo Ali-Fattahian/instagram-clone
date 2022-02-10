@@ -82,7 +82,7 @@ class TestHomePageView(TestCase):
         not_auth_user = Client()
         response = not_auth_user.get(reverse('core:homepage'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('core/homepage.html')
+        self.assertTemplateUsed(response, 'core/homepage.html')
 
     def test_post_like(self):
         """Test post like feature works by clicking on heart icon for authenticated users"""
@@ -135,7 +135,7 @@ class TestProfileDetail(TestCase):
 
     def test_profile_detail_works(self):
         """Test this view works and uses the right template"""
-        self.assertTemplateUsed('core/user-account.html')
+        self.assertTemplateUsed(self.get_response, 'core/user-account.html')
         self.assertEqual(self.get_response.status_code, 200)
 
     def test_follow_works(self):
@@ -168,7 +168,7 @@ class PostDetailView(TestCase):
     def test_post_detail_works(self):
         """Test this view works and uses the right template"""
         self.assertEqual(self.get_response.status_code, 200)
-        self.assertTemplateUsed('core/post-detail.html')
+        self.assertTemplateUsed(self.get_response, 'core/post-detail.html')
 
     def test_save_unsave_works(self):
         """Test a user can save and unsave a post in PostDetail page"""
@@ -201,7 +201,7 @@ class AddPostView(TestCase):
     def test_get_post_add_view(self):
         """Test post add view works for get request"""
         self.assertEqual(self.get_response.status_code, 200)
-        self.assertTemplateUsed('core/new-post.html')
+        self.assertTemplateUsed(self.get_response, 'core/new-post.html')
 
     def test_post_added(self):
         """Test post added to database after using add post view"""
