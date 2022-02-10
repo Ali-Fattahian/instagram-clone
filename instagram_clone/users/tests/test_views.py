@@ -145,9 +145,22 @@ class TestProfileDeleteConfirm(TestCase):
         self.test_client = Client()
         self.test_client.force_login(self.test_user)
 
-    def test_profile_delete_works(self):
+    def test_profile_delete_url_works(self):
         """Test profile delete confirmation page shows up for a logged in user"""
         response = self.test_client.get(reverse('users:profile-delete'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, 'users/profile-delete-confirmation.html')
+
+    def test_profile_delete_not_work(self):
+        """Test profile delete confirmation page doesn't work for not authenticated users"""
+        client = Client()
+        non_auth_res = client.post(reverse('users:profile-delete'))
+        self.assertEqual(non_auth_res.status_code, 302)
+
+    def test_profile_delete_works(self):
+        """Test an authenticated user can not log in after submiting the form"""
+        self.assertTrue(self.test_user.is_active == True)
+        self.test_client.post(reverse('users:profile-delete'))
+        self.test_user.refresh_from_db() #Django is still using the old information so we have to refresh it.
+        self.assertFalse(self.test_user.is_active == True)
