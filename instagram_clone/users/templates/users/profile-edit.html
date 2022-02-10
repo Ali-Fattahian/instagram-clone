@@ -31,7 +31,7 @@ Edit Profile • Instagram
                 <div class="btns">
                     <a class="cancel" href="{% url 'core:user-account' request.user.profile.slug %}">Cancel</a>
                     <button type="submit">Submit</button>
-                    <a class="cancel delete-account" href="#">Delete account</a>
+                    <a class="cancel delete-account" href="{% url 'users:profile-delete' %}">Delete account</a>
                 </div>
             </form>
         </div>
