@@ -3,6 +3,7 @@ from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from unittest.mock import MagicMock
+from django.db.utils import IntegrityError
 from django.core.files import File
 from django.conf import settings
 from core.forms import CommentForm
@@ -93,6 +94,11 @@ class TestHomePageView(TestCase):
 
         self.assertTrue(LikePost.objects.filter(
             profile=self.test_profile2, post=self.test_post2).exists())
+
+        with self.assertRaises(IntegrityError, msg='Can\'t like the same post twice'):
+            self.test_client.post(reverse('core:homepage'), data={
+                'like_post_id': self.test_post2.id
+            })
 
     def test_post_save_unsave(self):
         """Test a user can save and unsave a post in homepage"""

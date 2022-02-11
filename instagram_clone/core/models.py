@@ -25,6 +25,9 @@ class Post(models.Model):
         """A property that shows creation date and time of a post in 'ago' format"""
         return datetime_generator(self.date_created_clean, self.date_created)
 
+    class Meta:
+        ordering = ['-date_created']
+
 class Comment(models.Model):
     content = models.TextField()
     profile = models.ForeignKey(
