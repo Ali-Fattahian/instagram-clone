@@ -112,3 +112,16 @@
           margin-bottom: 1rem; }
         #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction {
           margin-left: 0; } }
+
+
+@media screen and (max-width: 860px) {
+  #user-main .user-container .user-information .user-profile__details .user-name-interaction {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction {
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}
