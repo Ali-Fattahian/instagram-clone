@@ -126,3 +126,19 @@
     margin-top: 1rem;
   }
 }
+
+@media screen and (max-width: 640px) {
+  #user-main .user-container .user-posts {
+    grid-template-columns: 1fr;
+  }
+
+  #user-main .user-container .user-posts .user-post {
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #user-main .user-container .user-information .user-profile__details .user-name-interaction .user-interaction a {
+    margin-right: .5rem;
+  }
+}
