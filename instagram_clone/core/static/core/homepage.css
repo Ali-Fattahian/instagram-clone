@@ -361,10 +361,36 @@ input {
     align-items: center;
     flex-direction: column; }
   #main .main__content .posts .post .post__picture img {
-    width: 100vw; }
+    border: 1px solid #fff;
+    width: 100%; }
   .suggestions {
     display: none; }
   .spacefiller {
     display: none; }
   .nav-container .navbar .search {
     display: none; } }
+
+@media screen and (max-width: 375px) {
+  body {
+    min-width: fit-content;
+  }
+
+  #header .nav-container .navbar {
+    display: block;
+  }
+
+  #header .nav-container .navbar .instagram-icon {
+    display: none;
+  }
+
+  #header .nav-container .navbar .icons {
+    margin: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #header .nav-container .navbar .icons .fa-home {
+    display: inline;
+  }
+}
