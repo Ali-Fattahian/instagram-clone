@@ -99,12 +99,14 @@ class TestHomePageView(TestCase):
         self.test_client.post(reverse('core:homepage'), data={
             'post_save_id': self.test_post2.id
         })
-        self.assertTrue(SavePost.objects.filter(profile=self.test_profile2, post=self.test_post2).exists())
+        self.assertTrue(SavePost.objects.filter(
+            profile=self.test_profile2, post=self.test_post2).exists())
 
         self.test_client.post(reverse('core:homepage'), data={
             'post_unsave_id': self.test_post2.id
         })
-        self.assertFalse(SavePost.objects.filter(profile=self.test_profile2, post=self.test_post2).exists())
+        self.assertFalse(SavePost.objects.filter(
+            profile=self.test_profile2, post=self.test_post2).exists())
 
 
 class TestProfileDetail(TestCase):
@@ -175,12 +177,14 @@ class PostDetailView(TestCase):
         self.test_client.post(reverse('core:post', args=(self.test_profile.slug, self.test_post.pk)), data={
             'post_save': True
         })
-        self.assertTrue(SavePost.objects.filter(post=self.test_post, profile=self.test_profile))
-        
-        self.test_client.post(reverse('core:post', args=(self.test_profile.slug, self.test_post.pk)), data= {
+        self.assertTrue(SavePost.objects.filter(
+            post=self.test_post, profile=self.test_profile))
+
+        self.test_client.post(reverse('core:post', args=(self.test_profile.slug, self.test_post.pk)), data={
             'post_unsave': True
         })
-        self.assertFalse(SavePost.objects.filter(post=self.test_post, profile=self.test_profile))
+        self.assertFalse(SavePost.objects.filter(
+            post=self.test_post, profile=self.test_profile))
 
 
 class AddPostView(TestCase):
@@ -197,7 +201,6 @@ class AddPostView(TestCase):
         self.test_client.force_login(user=self.test_user)
         self.get_response = self.test_client.get(reverse('core:add-post'))
 
-
     def test_get_post_add_view(self):
         """Test post add view works for get request"""
         self.assertEqual(self.get_response.status_code, 200)
@@ -206,20 +209,61 @@ class AddPostView(TestCase):
     def test_post_added(self):
         """Test post added to database after using add post view"""
         self.test_client.post(reverse('core:add-post'), data={
-            'post-image':MagicMock(spec=File, name='FileMock'),
+            'post-image': MagicMock(spec=File, name='FileMock'),
             'post-caption': 'some test'
         })
 
-        os.remove(settings.BASE_DIR / 'uploaded_files/post_images/post-image') #remove the created file called post-image
+        # remove the created file called post-image
+        os.remove(settings.BASE_DIR / 'uploaded_files/post_images/post-image')
         post = Post.objects.get(content='some test')
         self.assertTrue(post)
 
     def test_post_not_added(self):
         """Test post object can not be created if the user is not authenticated"""
         test_client2 = Client()
-        test_client2.post(reverse('core:add-post'), data= {
-            'post-caption':'some test',
-            'post-image':MagicMock(spec=File, name='FileMock')
+        test_client2.post(reverse('core:add-post'), data={
+            'post-caption': 'some test',
+            'post-image': MagicMock(spec=File, name='FileMock')
         })
 
         self.assertFalse(Post.objects.filter(content='some test'))
+
+
+class TestDeletePostView(TestCase):
+    def setUp(self):
+        self.username = 'test_user'
+        self.email = 'test_user@gmail.com'
+        self.password = 'testpassword'
+        self.first_name = 'first test'
+        self.last_name = 'last test'
+        self.test_user = get_user_model().objects.create_user(
+            username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
+        self.test_profile = self.test_user.profile
+        self.test_client = Client()
+        self.test_client.force_login(user=self.test_user)
+        self.test_post = Post.objects.create(content='random string', profile=self.test_profile,
+                                             image='post_images/demo-pic-1.jpg')
+
+    def test_delete_post_url_works(self):
+        """Test delete post url returns 200 response for a logged in user and it uses the right template"""
+        response = self.test_client.get(reverse('core:delete-post'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'core/delete-post.html')
+
+    def test_delete_post_works(self):
+        """Test that after sending a POST request with the required post id, it deletes the post"""
+        self.assertIsInstance(self.test_post, Post)
+        self.assertTrue(Post.objects.filter(id=1))
+        self.test_client.post(reverse('core:delete-post'), data={
+            'post-delete-id': 1
+        })
+        self.assertFalse(Post.objects.filter(id=1))
+
+    def test_delete_post_not_work(self):
+        """Test delete post url does not work for not-auth users"""
+        self.assertIsInstance(self.test_post, Post)
+        not_auth_client = Client()
+        not_auth_client.post(reverse('core:delete-post'), data={
+            'post-delete-id': 1
+        })
+        self.assertTrue(Post.objects.filter(id=1))
