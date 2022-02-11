@@ -15,7 +15,7 @@ label {
 .btn {
   padding: 10px 110px;
   cursor: pointer;
-  transition: 0.1s background-color ease-in-out;
+  transition: 0.3s all ease-in-out;
   border: none;
 }
 .btn:active,
