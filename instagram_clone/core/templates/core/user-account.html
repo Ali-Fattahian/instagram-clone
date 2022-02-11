@@ -44,7 +44,7 @@
                 {% endif %}
                 {% if request.user.profile == profile %}
                 <a class="btn" href="{% url 'users:edit-profile' profile.slug %}">Edit Profile</a>
-                <a class="btn" href="#">Delete a post</a>
+                <a class="btn" href="{% url 'core:delete-post' %}">Delete a post</a>
                 <a class="saved-posts" href="{% url 'core:saved-posts' %}"><i class="fa fa-bookmark-o fa-lg"></i></a>
                 {% endif %}
                 {% else %}

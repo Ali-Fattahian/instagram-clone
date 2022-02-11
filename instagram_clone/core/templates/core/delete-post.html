@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Delete a post
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'core/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'core/delete-post.css' %}">
+{% endblock  %}
+
+{% block content %}
+
+    {% include 'core/includes/header.html' %}
+    <main id="main">
+        <div class="container">
+            <div class="return-to-profile">
+                <a href="{% url 'core:user-account' request.user.profile.slug %}"><i class="fa fa-arrow-left"></i></a>
+            </div>
+            <div class="delete-posts">
+                {% for post in posts %}
+                <div class="delete-post">
+                    <a href="{% url 'core:post' slug=post.profile.slug pk=post.id %}" class="delete-post__link">
+                        <img src="{{ post.image.url }}" alt="{{ post.profile.username }} post">
+                    </a>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="post-delete-id" value="{{ post.pk }}">
+                        <button type="submit" title="There is no confirmation, You delete the post after clicking here.">Delete</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+
+    <script src="{% static 'js/app.js' %}"></script>
+{% endblock %}

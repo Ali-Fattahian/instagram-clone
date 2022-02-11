@@ -247,3 +247,15 @@ class SavedPostsView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return SavePost.objects.filter(profile=self.request.user.profile)
     
+
+class DeletePostView(LoginRequiredMixin ,View):
+    def get(self, request):
+        profile = request.user.profile
+        posts = Post.objects.filter(profile=profile)
+        return render(request, 'core/delete-post.html', {'posts':posts})
+
+    def post(self, request):
+        post_id = request.POST.get('post-delete-id')
+        post = get_object_or_404(Post, pk=post_id)
+        post.delete()
+        return redirect('core:delete-post')
