@@ -21,8 +21,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include(('users.urls', 'users'), namespace='users')),
-    path('', include(('core.urls', 'core'), namespace='core')),
+    path('', include(('users.urls', 'users'), namespace='users')),
+    path('homepage/', include(('core.urls', 'core'), namespace='core')),
     path('verification/', include('verify_email.urls')),	
 
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name='users/reset-password.html'), name='reset_password'),
