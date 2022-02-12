@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.db.utils import IntegrityError
-from core.models import Post, Comment, LikePost, LikeComment
+from core.models import Post, Comment, LikePost
 
 
 class TestPostModel(TestCase):
@@ -69,26 +69,26 @@ class TestLikePostModel(TestCase):
         self.assertIsInstance(self.test_like_post, LikePost)
 
 
-class TestLikeComment(TestCase):
-    def setUp(self):
-        self.username = 'test_user'
-        self.email = 'test_user@gmail.com'
-        self.password = 'testpassword'
-        self.first_name = 'first test'
-        self.last_name = 'last test'
-        self.test_user = get_user_model().objects.create_user(
-            username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
-        self.test_profile = self.test_user.profile
-        self.test_post = Post.objects.create(content='random string', profile=self.test_profile,
-                                             image='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg')
-        self.test_comment = Comment.objects.create(
-            content='random string', profile=self.test_profile, post=self.test_post)
-        self.test_like_comment = LikeComment.objects.create(
-            profile=self.test_profile, comment=self.test_comment)
+# class TestLikeComment(TestCase):
+#     def setUp(self):
+#         self.username = 'test_user'
+#         self.email = 'test_user@gmail.com'
+#         self.password = 'testpassword'
+#         self.first_name = 'first test'
+#         self.last_name = 'last test'
+#         self.test_user = get_user_model().objects.create_user(
+#             username=self.username, password=self.password, email=self.email, first_name=self.first_name, last_name=self.last_name)
+#         self.test_profile = self.test_user.profile
+#         self.test_post = Post.objects.create(content='random string', profile=self.test_profile,
+#                                              image='https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg')
+#         self.test_comment = Comment.objects.create(
+#             content='random string', profile=self.test_profile, post=self.test_post)
+#         self.test_like_comment = LikeComment.objects.create(
+#             profile=self.test_profile, comment=self.test_comment)
 
-    def test_create_like_comment(self):
-        """Test likecomment object created by profile and comment field given"""
-        self.assertIsInstance(self.test_like_comment, LikeComment)
+#     def test_create_like_comment(self):
+#         """Test likecomment object created by profile and comment field given"""
+#         self.assertIsInstance(self.test_like_comment, LikeComment)
 
 class TestLikePostModel(TestCase):
     def setUp(self):
