@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.views.generic import View
 from django.views.generic.list import ListView
@@ -51,7 +52,6 @@ class HomePageView(View):
                 form.post = Post.objects.get(id=post_id)
                 form.profile = request.user.profile
                 form.save()
-                print('comment added')
                 return redirect('core:homepage')
             elif ( 'post_unsave_id' in request.POST or 'post_save_id' in request.POST): # if i use form validation here(before like_post_form validation) it won't work. Always the middle one doens't work normally.
                 if request.POST.get('post_save_id'):
@@ -91,9 +91,8 @@ class HomePageView(View):
 
                 context = {'posts': posts.order_by(
                     '-date_created'), 'comment_form': comment_form}
-                print('show comment errors')
                 return render(request, 'core/homepage.html', context)
-        print('log in first!')
+        messages.error(request, 'You have to log in first!')
         return redirect('users:log-in')
 
 
@@ -121,19 +120,19 @@ class UserProfileDetail(View):
         unfollow_request = request.POST.get('user-unfollow')
         if follow_request:
             if Follow.objects.filter(followed_user=profile, following_user=request.user.profile).exists():
-                # print('you have already followed this user')
+                messages.error(request, 'You have already followed this user')
                 return redirect('core:user-account', slug=profile.slug)
             else:
                 Follow.objects.create(
                     followed_user=profile, following_user=request.user.profile)
-                print('follow accepted')
+                messages.success(request, f'You are now following {profile.username}')
                 return redirect('core:user-account', slug=profile.slug)
         elif unfollow_request:
             follow_object = Follow.objects.filter(
                 followed_user=profile, following_user=request.user.profile)
             if follow_object.exists():
                 follow_object.delete()
-                # print('successfully unfollowed')
+                messages.success(request, 'Unfollowed!')
                 return redirect('core:user-account', slug=profile.slug)
             else:
                 raise ValidationError('You didn\'t follow this user')
@@ -172,7 +171,6 @@ class PostDetailView(View):
                 form.post = post
                 form.profile = request.user.profile
                 form.save()
-                print('comment added')
                 return HttpResponseRedirect(reverse('core:post', args=[slug, post.pk]))
 
             elif ( 'post_unsave' in request.POST or 'post_save' in request.POST): # Again i had to change the order of checking for post_save/unsave request and like/unlike request.
@@ -204,7 +202,7 @@ class PostDetailView(View):
                     'like_post_form': like_post_form
                 }
                 return render(request, 'core/post-detail.html', context)
-        print('log in first!')
+        messages.error(request, 'You have to log in first!')
         return redirect('users:log-in')
 
 
@@ -223,10 +221,10 @@ class AddPostView(LoginRequiredMixin, View):
         try:
             post.full_clean()
             post.save()
-            print('Post created successfully')
+            messages.success(request, 'Post created successfully')
             return redirect('core:user-account', slug=post_profile.slug)
         except ValidationError:
-            print('invalid data')
+            messages.error(request, 'There was a problem creating the post, Make sure everything is correct!')
             return render(request, 'core/new-post.html')
 
 
