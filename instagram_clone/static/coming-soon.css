@@ -20,17 +20,22 @@ h1 {
     border: 1px #fff solid;
 }
 
-p {
-    font-size: 3vw;
+#main .container form {
     margin-top: 1.5rem;
+    border: none;
 }
 
-p a {
+#main .container form input {
+    font-size: 3vw;
     color: #fff;
+    background-color: transparent;
+    border: none;
+    width: auto;
+    height: auto;
 }
 
 @media screen and (max-width: 645px) {
-    p {
+    #main .container form {
         font-size: 5vw;
     }
 }
