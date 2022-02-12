@@ -4,6 +4,5 @@ from . import models
 
 admin.site.register(models.Post)
 admin.site.register(models.Comment)
-admin.site.register(models.LikeComment)
 admin.site.register(models.LikePost)
 admin.site.register(models.SavePost)
