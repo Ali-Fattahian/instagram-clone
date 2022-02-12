@@ -24,6 +24,9 @@ Sign Up • Instagram
           <h3>Sign up to see photos and videos from your friends.</h3>
           <div class="inputs">
             {{ form }}
+            {% if form.errors %}
+              {{ errors }}
+            {% endif %}
           </div>
           <div class="links">
             <button type="submit" class="btn">Sign Up</button>

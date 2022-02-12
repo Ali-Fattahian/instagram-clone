@@ -144,6 +144,11 @@ label {
   margin: 0 0.5rem;
 }
 
+.errorlist li {
+  margin: .5rem 0;
+  color: red;
+}
+
 @media (max-width: 865px) {
   #images {
     display: none;
@@ -162,5 +167,19 @@ label {
   }
   .sign-up a {
     display: block;
+  }
+}
+
+@media screen and (max-width: 378px) {
+  body {
+    min-width: fit-content;
+  }
+
+  input {
+    width: 200px;
+  }  
+
+  #main .content-container #register form .links button {
+    padding: 7px 76px;
   }
 }
