@@ -88,7 +88,6 @@ class TestEditProfileView(TestCase):
         test_client = Client()
         get_response_not_auth = test_client.get(
             reverse('users:edit-profile', args=[self.profile.slug]))
-        print(get_response_not_auth)
 
         self.assertEqual(get_response_not_auth.status_code, 403)
 
