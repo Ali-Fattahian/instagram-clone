@@ -17,7 +17,7 @@ class Post(models.Model):
     @property
     def date_created_clean(self):
         now = datetime.datetime.now()
-        now_aware = now.replace(tzinfo=datetime.timezone.utc) #Add UTC to add similar to django datetimefield default behavior
+        now_aware = now.replace(tzinfo=datetime.timezone.utc) #Add UTC to it so it's similar to django datetimefield default behavior
         return datetime_subtractor(now_aware, self.date_created)
 
     @property
