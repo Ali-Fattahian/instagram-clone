@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.views.generic import View
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from .models import Profile
 from .forms import SignUpForm, ProfileModelForm
