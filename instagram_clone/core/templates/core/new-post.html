@@ -37,12 +37,7 @@
                     <img src="{{ request.user.profile.image.url }}" alt="{{ request.user.username }} profile picture" class="profile-picture">
                     <div class="profile-username"><a href="{% url 'core:user-account' request.user.profile.slug %}">{{ request.user.username }}</a></div>
                 </div>
-              <input
-                type="text"
-                name="post-caption"
-                id="post-caption"
-                placeholder="Write a caption..."
-              />
+              <textarea name="post-caption" id="post-caption" placeholder="Write a caption..."></textarea>
             </div>
           </section>
         </section>

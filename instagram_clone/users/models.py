@@ -5,18 +5,18 @@ from django.urls import reverse
 
 
 class Profile(models.Model):
-    email = models.EmailField()
+    email = models.EmailField(max_length=255)
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=255)
     user = models.OneToOneField(
         get_user_model(), on_delete=models.CASCADE, related_name="profile")
     date_joined = models.DateTimeField(auto_now_add=True, editable=False)
     bio = models.TextField(blank=True, null=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     image = models.ImageField(
-        upload_to='profile_pictures/', blank=True, default='profile_pictures/default_profile_picture.png')
-    slug = models.SlugField(editable=False)
+        upload_to='profile_pictures/', blank=True, default='profile_pictures/default_profile_picture.png', max_length=255)
+    slug = models.SlugField(editable=False, max_length=255)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.username)

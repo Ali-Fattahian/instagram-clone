@@ -59,8 +59,12 @@ WSGI_APPLICATION = 'instagram_clone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'instagram-clone-django',
+        'USER': 'postgres',
+        'PASSWORD': 'a53222235',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 

@@ -111,10 +111,15 @@ input {
           #main form #main-bottom #post-form-right .add-caption .user-profile .profile-username a {
             font-weight: bold;
             color: #000; }
-        #main form #main-bottom #post-form-right .add-caption input {
+        #main form #main-bottom #post-form-right .add-caption textarea {
+          width: 100%;
+          height: 20rem;
+          padding: .5rem .2rem;
           margin-top: 1rem;
           background-color: #fff;
           border: none; }
+        #main form #main-bottom #post-form-right .add-caption textarea:focus {
+          outline: none; } 
 
 @media screen and (max-width: 490px) {
   #main form #main-bottom {
@@ -125,3 +130,5 @@ input {
       width: 100%; }
     #main form #main-bottom #post-form-right {
       width: 100%; } }
+    #main form #main-bottom #post-form-right .add-caption textarea {
+      height: 15rem; }

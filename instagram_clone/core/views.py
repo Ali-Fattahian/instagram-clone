@@ -24,6 +24,7 @@ class HomePageView(View):
             posts = Post.objects.none()
             for followed_user in followed_users:
                 posts = Post.objects.filter(profile=followed_user) | posts
+            posts = posts | Post.objects.filter(profile=request.user.profile)
             user_liked_posts=[]
             for like_object in LikePost.objects.filter(profile=user_profile):
                 if like_object.post in posts:

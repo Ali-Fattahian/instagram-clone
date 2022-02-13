@@ -7,9 +7,9 @@ from .utils import *
 class Post(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='posts')
-    image = models.ImageField(upload_to='post_images/')
-    date_created = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()
+    image = models.ImageField(upload_to='post_images/', max_length=255)
+    date_created = models.DateTimeField(auto_now_add=True, max_length=255)
+    content = models.TextField(max_length=400)
 
     def __str__(self):
         return f'Post id:{self.id} | author:{self.profile.username}'
@@ -29,7 +29,7 @@ class Post(models.Model):
         ordering = ['-date_created']
 
 class Comment(models.Model):
-    content = models.TextField()
+    content = models.TextField(max_length=100)
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='comments')
     post = models.ForeignKey(

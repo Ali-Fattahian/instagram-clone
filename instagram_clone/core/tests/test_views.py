@@ -259,17 +259,17 @@ class TestDeletePostView(TestCase):
     def test_delete_post_works(self):
         """Test that after sending a POST request with the required post id, it deletes the post"""
         self.assertIsInstance(self.test_post, Post)
-        self.assertTrue(Post.objects.filter(id=1))
+        self.assertTrue(Post.objects.filter(id=self.test_post.pk))
         self.test_client.post(reverse('core:delete-post'), data={
-            'post-delete-id': 1
+            'post-delete-id': self.test_post.pk
         })
-        self.assertFalse(Post.objects.filter(id=1))
+        self.assertFalse(Post.objects.filter(id=self.test_post.pk))
 
     def test_delete_post_not_work(self):
         """Test delete post url does not work for not-auth users"""
         self.assertIsInstance(self.test_post, Post)
         not_auth_client = Client()
         not_auth_client.post(reverse('core:delete-post'), data={
-            'post-delete-id': 1
+            'post-delete-id': self.test_post.pk
         })
-        self.assertTrue(Post.objects.filter(id=1))
+        self.assertTrue(Post.objects.filter(id=self.test_post.pk))

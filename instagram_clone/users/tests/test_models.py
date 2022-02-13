@@ -56,7 +56,7 @@ class TestFollowModel(TestCase):
     def test_check_users_followers(self):
         """Check following users exist in followed user 'follow section'"""
         self.assertEqual(self.test_profile2.followings.all()
-                         [0].id, self.test_profile1.id)
+                         [0].followed_user.pk, self.test_profile1.id)
         self.assertEqual(self.test_profile1.followers.count(), 1)
 
     def test_user_follow_self(self):
