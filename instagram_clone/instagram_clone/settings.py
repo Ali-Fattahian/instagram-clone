@@ -11,8 +11,8 @@ DEBUG = True
 if os.getcwd() == '/app':
     DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'instagram-clone-django.herokuapp.com']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                 'instagram-clone-django.herokuapp.com']
 
 
 INSTALLED_APPS = [
@@ -75,17 +75,15 @@ if DEBUG == True:
     }
 else:
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd7mbqqjf0tk14r',
-        'USER': 'mckaoutaqcteml',
-        'PASSWORD': 'c7290a57e5516a56f88fdb7542cfbb8d32552e5f5d7657fd3ad194314d48d99a',
-        'HOST': 'ec2-18-203-64-130.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432'
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'd7mbqqjf0tk14r',
+            'USER': 'mckaoutaqcteml',
+            'PASSWORD': 'c7290a57e5516a56f88fdb7542cfbb8d32552e5f5d7657fd3ad194314d48d99a',
+            'HOST': 'ec2-18-203-64-130.eu-west-1.compute.amazonaws.com',
+            'PORT': '5432'
+        }
     }
-}
-
-
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -104,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -112,7 +109,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 
 STATIC_URL = 'static/'

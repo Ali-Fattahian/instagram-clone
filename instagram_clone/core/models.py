@@ -80,3 +80,4 @@ class SavePost(models.Model):
             models.UniqueConstraint(
                 fields=['profile', 'post'], name='You can\'t save the same post more than once'),
         ]
+        

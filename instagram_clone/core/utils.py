@@ -81,3 +81,4 @@ class OnlySameUserCanEditMixin(object): #only the user has access to edit-profil
         if not self.has_permissions():
             raise PermissionDenied('You don\'t have access to this url')
         return super(OnlySameUserCanEditMixin, self).dispatch(request, *args, **kwargs)
+        
