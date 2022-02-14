@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  background-color: #fafafa; }
+
+a {
+  text-decoration: none; }
+
+ul {
+  list-style: none; }
+
+#edit {
+  margin: auto;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 463px;
+  border: 1px solid #dbdbdb;
+  padding: 3rem; }
+  #edit a {
+    color: #0095f6; }
+  #edit div {
+    margin-bottom: 1rem; }
+  #edit .full-name {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; }
+  #edit input,
+  #edit textarea {
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    width: 355px;
+    height: 32px;
+    border: 1px solid #e1e1e1;
+    border-radius: 3px; }
+    #edit input:focus,
+    #edit textarea:focus {
+      outline: 0; }
+  #edit label {
+    margin-right: 1rem;
+    font-weight: bold; }
+  #edit button {
+    border: 1px solid #0095f6;
+    background-color: #0095f6;
+    color: #fff;
+    border-radius: 4px;
+    transition: .4s background ease-in-out;
+    margin-top: .1rem;
+    padding: 5px 9px; }
+    #edit button:hover, #edit button:active {
+      opacity: .9;
+      cursor: pointer; }
+
+  #edit .cancel {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    border: 1px solid #498ab4;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: .4s background ease-in-out;
+    color: #5b5757;
+    border-radius: 4px;
+    padding: 3.5px 7.5px; }
+    #edit .cancel:hover, #edit .cancel:active {
+      background-color: #498ab4;
+      color: #fff;
+      cursor: pointer; }
+  #edit .delete-account {
+    margin-top: .5rem;
+    color: #fff;
+    border: 1px solid #ff4567;
+    background-color: #ff4567;
+    display: block;
+    text-align: center; }
+  #edit .delete-account:hover,
+  #edit .delete-account:active {
+    background-color: #b21733;
+    border-color: #b21733; }
+  #edit .profile-picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: normal; }
+    #edit .profile-picture .image {
+      margin-right: 2rem; }
+      #edit .profile-picture .image img {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%; }
+  #edit .username input {
+    margin-left: 4px; }
+  #edit .bio {
+    margin-top: 2rem; }
+    #edit .bio textarea {
+      margin-left: 3rem; }
+  #edit .email {
+    margin-top: 1.5rem;
+    margin-left: 2rem; }
+
+@media screen and (max-width: 518px) {
+  #edit .bio textarea {
+    margin-left: 0; } }
+
+@media screen and (max-width: 465px) {
+  #edit .email {
+    margin-left: 0; } }
+
+@media screen and (max-width: 375px) {
+  #edit input, #edit textarea {
+    width: 90vw; } }
