@@ -1,13 +1,17 @@
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 SECRET_KEY = 'django-insecure-52dylq01)v2z$07z^3@dti4igzpl%#h(6&$xnv+^pz&f=@r5zb'
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if os.getcwd() == '/app':
+    DEBUG = False
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'instagram-clone-django.herokuapp.com']
 
 
 
@@ -58,17 +62,29 @@ TEMPLATES = [
 WSGI_APPLICATION = 'instagram_clone.wsgi.application'
 
 
-
-DATABASES = {
+if DEBUG == True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'instagram-clone-django',
+            'USER': 'postgres',
+            'PASSWORD': 'a53222235',
+            'HOST': 'localhost',
+            'PORT': '5432'
+        }
+    }
+else:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instagram-clone-django',
-        'USER': 'postgres',
-        'PASSWORD': 'a53222235',
-        'HOST': 'localhost',
+        'NAME': 'd7mbqqjf0tk14r',
+        'USER': 'mckaoutaqcteml',
+        'PASSWORD': 'c7290a57e5516a56f88fdb7542cfbb8d32552e5f5d7657fd3ad194314d48d99a',
+        'HOST': 'ec2-18-203-64-130.eu-west-1.compute.amazonaws.com',
         'PORT': '5432'
     }
 }
+
 
 
 

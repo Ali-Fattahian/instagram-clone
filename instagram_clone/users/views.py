@@ -46,7 +46,7 @@ class LogInView(View):
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             return redirect('core:homepage')
-        messages.error(request, 'Invalid information')
+        messages.error(request, 'Make sure username and password are correct.')
         return render(request, 'users/login.html')
 
 
