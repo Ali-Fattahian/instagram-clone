@@ -116,28 +116,31 @@ class UserProfileDetail(View):
         return render(request, 'core/user-account.html', context)
 
     def post(self, request, slug):
-        profile = get_object_or_404(Profile, slug=slug)
-        follow_request = request.POST.get('user-follow')
-        unfollow_request = request.POST.get('user-unfollow')
-        if follow_request:
-            if Follow.objects.filter(followed_user=profile, following_user=request.user.profile).exists():
-                messages.error(request, 'You have already followed this user')
-                return redirect('core:user-account', slug=profile.slug)
-            else:
-                Follow.objects.create(
+        if request.user.is_authenticated:
+            profile = get_object_or_404(Profile, slug=slug)
+            follow_request = request.POST.get('user-follow')
+            unfollow_request = request.POST.get('user-unfollow')
+            if follow_request:
+                if Follow.objects.filter(followed_user=profile, following_user=request.user.profile).exists():
+                    messages.error(request, 'You have already followed this user')
+                    return redirect('core:user-account', slug=profile.slug)
+                else:
+                    Follow.objects.create(
+                        followed_user=profile, following_user=request.user.profile)
+                    messages.success(request, f'You are now following {profile.username}')
+                    return redirect('core:user-account', slug=profile.slug)
+            elif unfollow_request:
+                follow_object = Follow.objects.filter(
                     followed_user=profile, following_user=request.user.profile)
-                messages.success(request, f'You are now following {profile.username}')
-                return redirect('core:user-account', slug=profile.slug)
-        elif unfollow_request:
-            follow_object = Follow.objects.filter(
-                followed_user=profile, following_user=request.user.profile)
-            if follow_object.exists():
-                follow_object.delete()
-                messages.success(request, 'Unfollowed!')
-                return redirect('core:user-account', slug=profile.slug)
-            else:
-                raise ValidationError('You didn\'t follow this user')
-        raise ValidationError('You can either follow or unfollow a user')
+                if follow_object.exists():
+                    follow_object.delete()
+                    messages.success(request, 'Unfollowed!')
+                    return redirect('core:user-account', slug=profile.slug)
+                else:
+                    raise ValidationError('You didn\'t follow this user')
+            raise ValidationError('You can either follow or unfollow a user')
+        messages.error(request, 'You have to log in first!')
+        return redirect('users:log-in')
 
 
 class PostDetailView(View):

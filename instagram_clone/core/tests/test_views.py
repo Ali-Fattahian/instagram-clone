@@ -155,6 +155,14 @@ class TestProfileDetail(TestCase):
         self.assertTrue(Follow.objects.filter(
             followed_user=self.test_profile2, following_user=self.test_profile).exists())
 
+    def test_follow_not_work(self):
+        """Test follow button doesn't work for a not logged in user"""
+        not_auth_client = Client()
+        response = not_auth_client.post(reverse('core:user-account', args=(self.test_profile2.slug, )), data={
+            'user-follow': True
+        })
+        self.assertEqual(response.status_code, 302)
+
 
 class PostDetailView(TestCase):
     def setUp(self):
