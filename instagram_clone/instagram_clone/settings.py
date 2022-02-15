@@ -10,10 +10,10 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = True
+DEBUG = False
 
-if os.getcwd() == '/app':
-    DEBUG = False
+# if os.getcwd() == '/app':
+#     DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1',
                  'instagram-clone-django.herokuapp.com']
