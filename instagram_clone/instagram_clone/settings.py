@@ -3,11 +3,12 @@ import os
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv()
 
-
-SECRET_KEY = 'django-insecure-52dylq01)v2z$07z^3@dti4igzpl%#h(6&$xnv+^pz&f=@r5zb'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
@@ -71,10 +72,10 @@ if DEBUG == True:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'instagram-clone-django',
-            'USER': 'postgres',
-            'PASSWORD': 'a53222235',
-            'HOST': 'localhost',
+            'NAME': os.getenv('DB_NAME_LOCAL'),
+            'USER': os.getenv('DB_USER_LOCAL'),
+            'PASSWORD': os.getenv('DB_PASSWORD_LOCAL'),
+            'HOST': os.getenv('DB_HOST_LOCAL'),
             'PORT': '5432'
         }
     }
@@ -82,10 +83,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'd7mbqqjf0tk14r',
-            'USER': 'mckaoutaqcteml',
-            'PASSWORD': 'c7290a57e5516a56f88fdb7542cfbb8d32552e5f5d7657fd3ad194314d48d99a',
-            'HOST': 'ec2-18-203-64-130.eu-west-1.compute.amazonaws.com',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
             'PORT': '5432'
         }
     }
@@ -127,9 +128,9 @@ MEDIA_URL = '/instagram-clone/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_ROOT = 'uploaded_files'
 CLOUDINARY_STORAGE = {
-  'CLOUD_NAME': 'df2vyrbdr', 
-  'API_KEY': '443917414288833', 
-  'API_SECRET': 'eGmwudJrNqoHOrdXRrNvbiQJOSY',
+  'CLOUD_NAME': os.getenv('CLOUDINARY_NAME'), 
+  'API_KEY': os.getenv('CLOUDINARY_API_KEY'), 
+  'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
 LOGIN_URL = 'users:log-in'
@@ -141,8 +142,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'instagram.django.clone@gmail.com'
-EMAIL_HOST_PASSWORD = 'zrhkD7bVNx2F'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 VERIFICATION_SUCCESS_TEMPLATE = None
 VERIFICATION_FAILED_TEMPLATE = 'users/email-validation-failed.html'
