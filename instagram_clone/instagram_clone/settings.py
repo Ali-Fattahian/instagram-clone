@@ -1,5 +1,8 @@
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,6 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
     'verify_email.apps.VerifyEmailConfig',
@@ -118,8 +123,14 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/instagram-clone/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_ROOT = 'uploaded_files'
+CLOUDINARY_STORAGE = {
+  'CLOUD_NAME': 'df2vyrbdr', 
+  'API_KEY': '443917414288833', 
+  'API_SECRET': 'eGmwudJrNqoHOrdXRrNvbiQJOSY',
+}
 
 LOGIN_URL = 'users:log-in'
 

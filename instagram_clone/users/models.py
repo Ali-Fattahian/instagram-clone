@@ -15,7 +15,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     image = models.ImageField(
-        upload_to='profile_pictures/', blank=True, default='profile_pictures/default_profile_picture.png', max_length=255)
+        upload_to='profile_pictures/', blank=True, default='profile_pictures/d_default_profile_picture_vpguse.png', max_length=255)
     slug = models.SlugField(editable=False, max_length=255)
 
     def save(self, *args, **kwargs):
