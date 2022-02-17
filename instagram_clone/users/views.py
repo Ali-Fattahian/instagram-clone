@@ -5,14 +5,15 @@ from django.contrib import messages
 from django.views.generic import View
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from .models import Profile
 from .forms import SignUpForm, ProfileModelForm
 from core.utils import OnlySameUserCanEditMixin
 from verify_email.email_handler import send_verification_email
+# ------------------------------------------------------------
 
 
+# Sign Up View
 class SignUpView(View):
     def get(self, request):
         form = SignUpForm()
@@ -28,8 +29,10 @@ class SignUpView(View):
             return redirect('users:sign-up')
         messages.error(request, 'Entered informations are not valid')
         return render(request, 'users/sign-up.html', context)
+# ------------------------------------------------------------
 
 
+# Log In View
 class LogInView(View):
     def get(self, request):
         if request.user.is_authenticated:
@@ -48,14 +51,18 @@ class LogInView(View):
             return redirect('core:homepage')
         messages.error(request, 'Make sure username and password are correct.')
         return render(request, 'users/login.html')
+# ------------------------------------------------------------
 
 
+# Log Out View
 def log_out(request):
     logout(request)
     messages.success(request, 'logged out successfully')
     return redirect('users:log-in')
+# ------------------------------------------------------------
 
 
+# Edit Profile View
 class EditProfileView(OnlySameUserCanEditMixin, LoginRequiredMixin, UpdateView):
     template_name = 'users/profile-edit.html'
     form_class = ProfileModelForm
@@ -63,8 +70,10 @@ class EditProfileView(OnlySameUserCanEditMixin, LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return get_object_or_404(Profile, slug=self.kwargs.get('slug'))
+# ------------------------------------------------------------
 
 
+# Profile List View
 class ProfileListView(View):
     def get(self, request):
         return render(request, 'users/profile-list.html', {'profiles': Profile.objects.all().order_by('-date_joined')})
@@ -77,8 +86,10 @@ class ProfileListView(View):
         else:
             profiles = Profile.objects.all().order_by('-date_joined')
         return render(request, 'users/profile-list.html', {'profiles': profiles})
+# ------------------------------------------------------------
 
 
+# Profile Delete Confirmation
 class ProfileDeleteConfirmationView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'users/profile-delete-confirmation.html')
@@ -89,3 +100,4 @@ class ProfileDeleteConfirmationView(LoginRequiredMixin, View):
         user.save()
         messages.info(request, 'Your account has been deleted, You can recover your account by sending your request with your account information to our email address.')
         return redirect('core:homepage')
+        

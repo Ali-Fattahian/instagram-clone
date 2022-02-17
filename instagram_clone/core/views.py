@@ -10,8 +10,10 @@ from django.db.models import Count
 from .models import Post, LikePost, SavePost
 from users.models import Follow, Profile
 from .forms import CommentForm, LikePostForm, SavePostForm
+# ------------------------------------------------------------
 
 
+# Home Page View
 class HomePageView(View):
     def get(self, request):
         if request.user.is_authenticated:
@@ -95,8 +97,10 @@ class HomePageView(View):
                 return render(request, 'core/homepage.html', context)
         messages.error(request, 'You have to log in first!')
         return redirect('users:log-in')
+## ------------------------------------------------------------
 
 
+# User Profile Detail View
 class UserProfileDetail(View):
     def get(self, request, slug):
         profile = get_object_or_404(Profile, slug=slug)
@@ -141,8 +145,10 @@ class UserProfileDetail(View):
             raise ValidationError('You can either follow or unfollow a user')
         messages.error(request, 'You have to log in first!')
         return redirect('users:log-in')
+# ------------------------------------------------------------
 
 
+# Post Detail View
 class PostDetailView(View):
     def get(self, request, slug, pk):
         post = get_object_or_404(Post, pk=pk)
@@ -208,8 +214,10 @@ class PostDetailView(View):
                 return render(request, 'core/post-detail.html', context)
         messages.error(request, 'You have to log in first!')
         return redirect('users:log-in')
+# ------------------------------------------------------------
 
 
+# Add Post View
 class AddPostView(LoginRequiredMixin, View):
     login_url = 'users:log-in'
     redirect_field_name = 'next' # this next functionality working for this view because of this
@@ -230,26 +238,34 @@ class AddPostView(LoginRequiredMixin, View):
         except ValidationError:
             messages.error(request, 'There was a problem creating the post, Make sure everything is correct!')
             return render(request, 'core/new-post.html')
+# ------------------------------------------------------------
 
 
+# Explore Page View
 def explore(request):
     posts = Post.objects.all().order_by('-date_created')
     context = {'posts':posts}
     return render(request, 'core/explore.html', context)
+# ------------------------------------------------------------
 
 
+# Coming Soon Page
 def coming_soon(request):
     return render(request, 'coming-soon.html')
+# ------------------------------------------------------------    
 
 
+# Saved Post View
 class SavedPostsView(LoginRequiredMixin, ListView):
     template_name = 'core/saved-posts.html'
     context_object_name = 'saved_posts'
 
     def get_queryset(self):
         return SavePost.objects.filter(profile=self.request.user.profile)
+# ------------------------------------------------------------        
     
 
+# Delete Post View
 class DeletePostView(LoginRequiredMixin ,View):
     def get(self, request):
         profile = request.user.profile
