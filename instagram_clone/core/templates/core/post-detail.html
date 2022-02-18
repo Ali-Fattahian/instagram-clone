@@ -37,6 +37,8 @@
               {{ post.content|linebreaks }}
             </p>
           </div>
+
+          {% comment %} Post Comments {% endcomment %}
           <div class="post__comments">
             <p class="comments__title">Comments</p>
             <div class="comments">
@@ -59,6 +61,8 @@
           </div>
           <div class="post__interaction">
             <div class="post__interaction-left">
+
+              {% comment %} Post Like Section {% endcomment %}
               <form id="post-like" method="post">
                 {% csrf_token %}
                 {{ like_post_form }}
@@ -70,6 +74,8 @@
               </form>
             </div>
             <div class="post__interaction-right">
+
+              {% comment %} Post Save Section {% endcomment %}
               <form id="post-save" method="post">
                 {% csrf_token %}
                 {{ save_post_form }}
@@ -83,6 +89,8 @@
               </form>
             </div>
           </div>
+
+          {% comment %} Additional Post Information Section {% endcomment %}
           <div class="post__likes">{{ post.post_like.count }} likes</div>
           <div class="post__date-created">
             <small>{{ post.date_created_ago_format }}</small>

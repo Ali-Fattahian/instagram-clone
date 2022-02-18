@@ -28,6 +28,8 @@
                 {% if request.user.is_authenticated %}
                 {% if request_user_is_follower %}
                 <a href="{% url 'core:coming-soon' %}" class="user-send-message">Message</a>
+
+                {% comment %} Follow Unfollow Section {% endcomment %}
                 <form method="post" style="{% if request.user.profile == profile %} display:none;{% endif %}">
                   {% csrf_token %}
                   <input type="hidden" name="user-unfollow" value="True">
@@ -41,6 +43,7 @@
                   <input type="hidden" name="user-follow" value="True">
                   <button type="submit" class="user-follow">Follow</button> 
                 </form>
+
                 {% endif %}
                 {% if request.user.profile == profile %}
                 <a class="btn" href="{% url 'users:edit-profile' profile.slug %}">Edit Profile</a>
@@ -62,6 +65,8 @@
             </div>
           </div>
         </div>
+
+        {% comment %} Posts Section {% endcomment %}
         <div class="user-posts">
           {% for post in profile.posts.all %}
           <a href="{% url 'core:post' slug=post.profile.slug pk=post.pk %}" class="user-post">

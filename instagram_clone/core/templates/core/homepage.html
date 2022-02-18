@@ -36,6 +36,8 @@
                 <img src="{{ post.image.url }}" alt="{{ post.profile.username }} post picture"/>
               </div>
               <div class="post__interaction">
+
+                {% comment %} Post Like Section {% endcomment %}
                 <div class="post__interaction-left">
                   <form id="post-like" method="post">
                     {% csrf_token %}
@@ -49,6 +51,8 @@
                     {% endif %}
                   </form>
                 </div>
+
+                {% comment %} Save Post Section {% endcomment %}
                 <div class="post__interaction-right">
                   <form id="post-save" method="post">
                     {% csrf_token %}
@@ -70,6 +74,8 @@
                   {{ post.content }}
                 </p>
               </div>
+
+              {% comment %} Comment Section {% endcomment %}
               <div class="post__comments">
                 <p class="comments__title">Comments</p>
                 <div class="comments">
@@ -110,6 +116,8 @@
           {% endif %}
           </div>
           <div class="spacefiller"></div>
+
+          {% comment %} Switch To Profile {% endcomment %}
           <div class="suggestions">
             {% if request.user.is_authenticated %}
             <div class="user-account">
@@ -123,6 +131,8 @@
               <a href="{% url 'core:user-account' request.user.profile.slug %}">Switch</a>
             </div>
             {% endif %}
+            {% comment %} Suggested Users Section {% endcomment %}
+
             <div class="suggestion-accounts">
               <div class="suggestion-accounts__header">
                 <h4>Suggestions For You</h4>
@@ -146,6 +156,8 @@
                 <a class="suggested-login" href="{% url 'users:log-in' %}">Log In</a>
               {% endif %}
             </div>
+
+            {% comment %} Tags Section {% endcomment %}
             <div class="tags">
               <div class="tags-first-row">
                 <a href="https://www.instagram.com/" target="_blank" title="You will be redirected to the real instagram!">About</a><a href="https://www.instagram.com/" target="_blank" title="You will be redirected to the real instagram!">Help</a><a href="https://www.instagram.com/" target="_blank" title="You will be redirected to the real instagram!">Press</a
