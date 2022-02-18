@@ -11,11 +11,11 @@
     border: 1px solid #dbdbdb;
 }
 
-#main .container .return-to-profile a {
+.return-to-profile a {
     color: #0095f6;
 }
 
-#main .container .delete-posts {
+.delete-posts {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -23,7 +23,7 @@
     width: 100%;
 }
 
-#main .container .delete-posts .delete-post {
+.delete-post {
     padding: 1rem;
     border-bottom: 1px solid #8e8e8e;
     width: 100%;
@@ -32,17 +32,17 @@
     align-items: center;
 }
 
-#main .container .delete-posts .delete-post:last-of-type {
+.delete-post:last-of-type {
     border: none;
 }
 
-#main .container .delete-posts .delete-post a img {
+.delete-post a img {
     object-fit: cover;
     width: 100%;
     max-width: 150px;
 }
 
-#main .container .delete-posts .delete-post form button {
+.delete-post form button {
     border: 1px solid #498ab4;
     border-radius: 4px;
     border: 1px solid #ff4567;
@@ -54,8 +54,8 @@
     margin-left: 1rem;
 }
 
-#main .container .delete-posts .delete-post form button:hover,
-#main .container .delete-posts .delete-post form button:active {
+.delete-post form button:hover,
+.delete-post form button:active {
     background-color: #b21733;
     border-color: #b21733; 
     cursor: pointer;
