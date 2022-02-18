@@ -66,16 +66,16 @@
 .user-name-interaction .user-interaction .saved-posts:active {
   transform: scale(1.1);
 }
-.user-interaction .user-unfollow {
+.user-name-interaction .user-interaction .user-unfollow {
   padding: 0.3rem;
   background-color: #fff;
   border: 1px solid #dbdbdb;
 }
-.user-interaction .user-unfollow:hover,
-.user-interaction .user-unfollow:active {
+.user-name-interaction .user-interaction .user-unfollow:hover,
+.user-name-interaction .user-interaction .user-unfollow:active {
   cursor: pointer;
 }
-.user-interaction .user-follow {
+.user-name-interaction .user-interaction .user-follow {
   border: #0095f6 1px solid;
   padding: 5px 14px;
   border-radius: 3px;
@@ -83,8 +83,8 @@
   transition: all 0.4s ease-in-out;
   background-color: #0095f6;
 }
-.user-interaction .user-follow:hover,
-.user-interaction .user-follow:active {
+.user-name-interaction .user-interaction .user-follow:hover,
+.user-name-interaction .user-interaction .user-follow:active {
   cursor: pointer;
   opacity: 0.9;
 }
