@@ -39,16 +39,16 @@ ul {
       display: flex;
       justify-content: center;
       align-items: center; }
-      .post .post-top .post__profile-links .poster__picture {
+      .post__profile-links .poster__picture {
         width: 24px;
         height: 24px;
         border-radius: 50%;
         background-color: #000;
         margin-right: 0.75rem; }
-      .post .post-top .post__profile-links .poster__username a {
+      .post__profile-links .poster__username a {
         color: #000;
         font-weight: bold; }
-        .post .post-top .post__profile-links .poster__username a:active, .post .post-top .post__profile-links .poster__username a:hover {
+        .post__profile-links .poster__username a:active, .post__profile-links .poster__username a:hover {
           text-decoration: underline; }
 
 .post__picture img {
@@ -65,16 +65,16 @@ ul {
   .post__interaction a {
     color: #000; }
 
-  .post .post-details .under-picture .post__interaction #post-like {
+  .post__interaction #post-like {
     display: inline; } 
-  .post .post-details .under-picture .post__interaction #post-like button,
-  .post .post-details .under-picture .post__interaction #post-save button {
+  .post__interaction #post-like button,
+  .post__interaction #post-save button {
   background-color: transparent;
   border: none; }
-  .post .post-details .under-picture .post__interaction #post-like button:active,
-  .post .post-details .under-picture .post__interaction #post-like button:hover,
-  .post .post-details .under-picture .post__interaction #post-save button:active,
-  .post .post-details .under-picture .post__interaction #post-save button:hover {
+  .post__interaction #post-like button:active,
+  .post__interaction #post-like button:hover,
+  .post__interaction #post-save button:active,
+  .post__interaction #post-save button:hover {
     cursor: pointer; }
 
 .post__likes {
@@ -104,12 +104,12 @@ ul {
     color: #8e8e8e; }
   .post__comments .comments {
     margin-top: 0.4rem; }
-    .post__comments .comments .comment__author {
+    .comments .comment__author {
       font-weight: bold;
       color: #000; }
-    .post__comments .comments .comment__content {
+    .comments .comment__content {
       display: inline; }
-  .post__comments .comment__add {
+  .comment__add {
     border-top: none; }
 
 .post__date-created {
@@ -134,16 +134,16 @@ ul {
       flex-direction: column;
       justify-content: center;
       align-items: flex-start; }
-      .post .post-details .under-picture .post__interaction {
+      .under-picture .post__interaction {
         order: 1;
         width: 100%; }
-      .post .post-details .under-picture .post__likes {
+      .under-picture .post__likes {
         order: 2; }
-      .post .post-details .under-picture .post__bio {
+      .under-picture .post__bio {
         order: 3;
         border: none; }
-      .post .post-details .under-picture .post__comments {
+      .under-picture .post__comments {
         order: 4;
         border: none; }
-      .post .post-details .under-picture .post__date-created {
+      .under-picture .post__date-created {
         order: 5; } }
