@@ -4,19 +4,17 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from dotenv import load_dotenv
+import dj_database_url
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = True
+DEBUG = False
 
-if os.getcwd() == '/app':
-    DEBUG = False
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1',
-                 'instagram-clone-django.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'instagram-clone-vedx.onrender.com']
 
 
 INSTALLED_APPS = [
@@ -68,7 +66,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'instagram_clone.wsgi.application'
 
 
-if DEBUG == True:
+if not DEBUG :
+    DATABASES = {
+        'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+    }
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -79,18 +81,6 @@ if DEBUG == True:
             'PORT': '5432'
         }
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': os.getenv('DB_HOST'),
-            'PORT': '5432'
-        }
-    }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
