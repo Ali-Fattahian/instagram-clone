@@ -257,7 +257,6 @@ input:focus {
 .suggestions .user-account .user-profile__picture {
   width: 58px;
   height: 40px;
-  background-color: #000;
 }
 .suggestions .user-account .user-profile__picture img {
   width: 100%;
