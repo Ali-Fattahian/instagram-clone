@@ -2,7 +2,7 @@
 
 ### Description
 
-Instagram website clone build with Django.
+Instagram website clone built with Django.
 This project was made to be as close as possible to Instagram website, however a few features are missing that are planned to be added later.
 
 ### Features
