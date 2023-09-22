@@ -3,7 +3,7 @@
 ### Description
 
 Instagram website clone build with Django.
-This project was made to be as close as possible to Instagram website, however a few features are missing that are planned to be added later.
+This project was made to be as close as possible to Instagram website, however a few features are missing that are planned to be added later. `Note: You might see a phishing warning when entering the website, I have sent a report to google explaining the situation.`
 
 ### Features
 

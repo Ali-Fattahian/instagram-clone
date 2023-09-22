@@ -176,6 +176,9 @@ input:focus {
 .post__profile-links .poster__username a:hover {
   text-decoration: underline;
 }
+.poster-more {
+  display: none;
+}
 .post__picture img {
   width: 614px;
   object-fit: cover;
@@ -326,7 +329,6 @@ input:focus {
   height: 2rem;
   width: 2rem;
   margin-right: 3rem;
-  background-color: #000;
 }
 
 .suggested-users__profile-picture img {
